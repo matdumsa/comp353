@@ -16,8 +16,11 @@ class Client extends CI_Model {
 
     function insert($clientId = "*")
     {
+      	$this->title   = $_POST['title']; // please read the below note
+        $this->content = $_POST['content'];
+        $this->date    = time();
         $this->db->insert('Client', $this);
-        $client_id = $this->db->insertid();
+       	return $this->db->insertid();
     }
 
     function update()
