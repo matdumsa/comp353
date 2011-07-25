@@ -1,11 +1,12 @@
 <?php
 
-class Client extends CI_Model {
+class Employee extends CI_Model {
 
-    var $client_id   = '';
+    var $employee_id   = '';
     var $address = '';
+    var $title = '';
     var $birth_of_birth    = '';
-	var $joining_date   = '';
+    var $joining_date   = '';
     var $name = '';
     var $category    = '';
     function __construct($Address,$Birth_of_birth,$Joining_date,$Name,$Category)
@@ -36,7 +37,7 @@ class Client extends CI_Model {
         $this->db->update('Client', $this, array('client_id' => $this->client_id ));
     }
     
-     function delete()
+    function delete()
     {
         $this->db->delete('Client', $this, array('client_id' => $this->client_id));
     }
