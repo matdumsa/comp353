@@ -13,14 +13,14 @@ class Client extends CI_Model {
     	if ($ClientId = "*")
     	        $query = $this->db->get('Client');
 		else
-    			$query = $this->db->query("SELECT * FROM Client where clinetId =" . $ClientID . ")";
-        return $query->result();
+    			$query = $this->db->query("SELECT * FROM Client where client_id =" . $ClientID);
+        return $query->result()
     }
 
-    function insert($Address,$BirthOfDate,$Name,$Category)
+    function insert($Address,$DateOfBirth,$Name,$Category)
     {
       	$this->address = $Address;
-        $this->dateOfBirth = $BirthOfDate;
+        $this->dateOfBirth = $DateOfBirth;
         $this->joiningDate = date();
         $this->name   = $Name;
         $this->category = $Category;
@@ -32,7 +32,6 @@ class Client extends CI_Model {
     {
     	$this->address = $Address;
         $this->dateOfBirth = $BirthOfDate;
-        $this->joiningDate = date();
         $this->name   = $Name;
         $this->category = $Category;
         $this.clientID = $ClientId;
