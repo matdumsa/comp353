@@ -2,33 +2,21 @@
 
 class Employee extends CI_Model {
 
-    var $employee_id   = '';
-    var $address = '';
-    var $title = '';
-    var $birth_of_birth    = '';
-    var $joining_date   = '';
-    var $name = '';
-    var $category    = '';
-    function __construct($Address,$Birth_of_birth,$Joining_date,$Name,$Category)
+       function __construct()
     {
-    	$address =  $Address;
-    	$birth_of_birth    =$Birth_of_birth ;
-		$joining_date   = $Joining_date ;
-   	 	$name = $Name ;
-   		$category = $Category ;
         // Call the Model constructor
         parent::__construct();
     }
     
-    function select()
+    function select($EmployeeId = "*")
     {
-        $query = $this->db->get('Client');
+        $query = $this->db->get('Employee');
         return $query->result();
     }
 
-    function insert()
+    function insert($EmployeeId = "*")
     {
-        $this->db->insert('Client', $this);
+        $this->db->insert('Employee', $this);
         $client_id = $this->db->insertid();
     }
 
