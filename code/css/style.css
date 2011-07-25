@@ -1,0 +1,71 @@
+/*
+CSS RESET, because all browser have different values for margin/padding/border for different html elements, so first rule is to reset all of these to make sure the page renders the same in all browsers.
+
+Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.8.0r4
+*/
+html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var,optgroup{font-style:inherit;font-weight:inherit;}del,ins{text-decoration:none;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:baseline;}sub{vertical-align:baseline;}legend{color:#000;}input,button,textarea,select,optgroup,option{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;}input,button,textarea,select{*font-size:100%;}
+
+
+/*Define the style for the main application, other stylesheet can be created as the need for modularisation is felt */
+html, body {
+	height: 100%;
+}
+
+body {
+	font-size:12px;
+	font-family:Helvetica;
+}
+.logo {
+	font-size:2em;
+	float:left;
+	margin:0 5px 0 5px;
+}
+
+#logout {
+	margin:3px;
+	padding:4px;
+	float:right;
+}
+.wrapper {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -1.3em; /* the bottom margin is the negative value of the footer's height */
+	padding-left:3px;
+	padding-right:3px;
+}
+.footer, .push {
+	height: 1em; /* .push must be the same height as .footer */
+}
+.footer {
+	margin-top:-1.6em;
+	border-top:1px #4297D7 solid;
+}
+
+a, .fakeLink {
+	cursor:pointer;
+}
+
+
+h1 {
+	font-size:3em;
+	text-shadow: 0.1em 0.1em 0.2em black
+}
+
+h2 {
+	color: #1D5987;
+	font-weight: bold;
+	font-size: 1.5em;
+}
+
+
+h3 {
+	color: #1D5987;
+	font-weight: bold;
+	font-size: 1em;
+	margin-top:0.6em;
+	margin-bottom:0.1em;
+}
