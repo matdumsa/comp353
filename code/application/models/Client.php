@@ -8,29 +8,41 @@ class Client extends CI_Model {
         parent::__construct();
     }
     
-    function select($clientId = "*")
+    function select($ClientId = "*")
     {
-        $query = $this->db->get('Client');
+    	if ($ClientId = "*")
+    	        $query = $this->db->get('Client');
+		else
+    			$query = $this->db->query("SELECT * FROM Client where clinetId =" . $ClientID . ")";
         return $query->result();
     }
 
-    function insert($clientId = "*")
+    function insert($Address,$BirthOfDate,$Name,$Category)
     {
-      	$this->title   = $_POST['title']; // please read the below note
-        $this->content = $_POST['content'];
-        $this->date    = time();
+      	$this->address = $Address;
+        $this->dateOfBirth = $BirthOfDate;
+        $this->joiningDate = date();
+        $this->name   = $Name;
+        $this->category = $Category;
         $this->db->insert('Client', $this);
        	return $this->db->insertid();
     }
 
-    function update()
+    function update($ClientId,$Address,$BirthOfDate,$Name,$Category)
     {
-        $this->db->update('Client', $this, array('client_id' => $this->client_id ));
+    	$this->address = $Address;
+        $this->dateOfBirth = $BirthOfDate;
+        $this->joiningDate = date();
+        $this->name   = $Name;
+        $this->category = $Category;
+        $this.clientID = $ClientId;
+        $this->db->update('Client', $this, array('client_id' => $this->clientID ));
     }
     
-     function delete()
+     function delete($clientId)
     {
-        $this->db->delete('Client', $this, array('client_id' => $this->client_id));
+    	this.clientID = $clientId;
+        $this->db->delete('Client', $this, array('client_id' => $this->clientId));
     }
 
 }
