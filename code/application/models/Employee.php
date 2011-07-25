@@ -16,8 +16,11 @@ class Employee extends CI_Model {
 
     function insert($EmployeeId = "*")
     {
+      	$this->title   = $_POST['title']; // please read the below note
+        $this->content = $_POST['content'];
+        $this->date    = time();
         $this->db->insert('Employee', $this);
-        $client_id = $this->db->insertid();
+       	return $this->db->insertid();
     }
 
     function update()
