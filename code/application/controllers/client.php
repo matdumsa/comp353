@@ -4,7 +4,7 @@ class Client extends CI_Controller {
 
 	public function add($field1, $field2, $field3) {
 		// Make sure you have the right to add
-	
+		
 	}
 
 	public function remove($client_id) {
