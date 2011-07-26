@@ -20,15 +20,33 @@ class Session extends CI_Controller {
 
 
 	public function login() {
-		$this->load->library('session');
-		$this->session->set_userdata(array("loggedIn" => true));
+
+		$this->session->set_userdata(array("loggedIn" => false));
 		$this->session->set_userdata(array("type" => "client"));
+
+		$this->load->model("Authentication");
 		
-		print json_encode(array("loginError"=>"false"));
+		$username = $this->input->post("username");
+		$password = $this->input->post("password");
+	
+		$auth_result = $this->Authentication->verifyCredentials($username, $password);
+
+
+		if ($auth_result == false) {
+			echo json_encode(array("loginError"=>"true"));
+		}
+		else {
+			$type = $auth_result;
+			$this->session->set_userdata(array("loggedIn" => true));
+			$this->session->set_userdata(array("type" => "client"));
+			print json_encode(array("loginError"=>"false"));
+		}
+		
+		exit();
+		
 	}
 	
 	public function logout() {
-		$this->load->library('session');
 		$this->session->sess_destroy();
 		
 		print json_encode(array("status" => "loggedOut", "message" => "You have successfully logged out"));
@@ -36,7 +54,6 @@ class Session extends CI_Controller {
 	}
 	
 	public function info() {
-		$this->load->library('session');
 		hasRight("view_client", $this->session);
 		print json_encode(array("name"=>"God", "username"=>"god", "role"=>"3"));
 	}

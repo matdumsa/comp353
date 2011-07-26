@@ -1,0 +1,34 @@
+use dmc353_1;
+
+drop view IF EXISTS Client_Overview;
+
+CREATE VIEW `dmc353_1`.`Client_Overview` AS
+select `dmc353_1`.`Client`.`clientId` AS `clientId`
+,`dmc353_1`.`Client`.`clientAddress` AS `clientAddress`
+,`dmc353_1`.`Client`.`clientDateOfBirth` AS `clientDateOfBirth`
+,`dmc353_1`.`Client`.`clientJoiningDate` AS `clientJoiningDate`
+,`dmc353_1`.`Client`.`clientName` AS `clientName`
+,`dmc353_1`.`Client`.`clientCategory` AS `clientCategory`
+,(select count(0) from `dmc353_1`.`Clients_own_account` `cos` where (`cos`.`clientId` = `dmc353_1`.`Client`.`clientId`)) AS `accountCount`
+,(select sum(`acc`.`accountBalance`) from (`dmc353_1`.`Account` `acc` join `dmc353_1`.`Clients_own_account` `cos` on((`acc`.`accountNumber` = `cos`.`accountId`))) where (`cos`.`clientId` = `dmc353_1`.`Client`.`clientId`)) AS `netValue`
+from `dmc353_1`.`Client`;
+
+drop view IF EXISTS Password;
+
+create view Password as
+
+select clientCardNumber as Username, clientPassword as Password, 'client' as Type
+from ClientCard
+union all
+select el.employeeId, employeeLoginPassword, 'manager' as Type
+from Employee_login el
+join Employee e on e.employeeId = el.employeeId
+where e.employeeId in (select branchManagedBy from Branch)
+union all
+select el.employeeId, employeeLoginPassword, 'clerk' as Type
+from Employee_login el
+join Employee e on e.employeeId = el.employeeId
+where e.employeeId not in (select branchManagedBy from Branch)
+
+
+;

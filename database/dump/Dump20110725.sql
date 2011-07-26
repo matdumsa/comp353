@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `dmc353_1` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `dmc353_1`;
 -- MySQL dump 10.13  Distrib 5.1.34, for apple-darwin9.5.0 (i386)
 --
 -- Host: localhost    Database: dmc353_1
@@ -18,27 +16,12 @@ USE `dmc353_1`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Employee_login`
+-- Current Database: `dmc353_1`
 --
 
-DROP TABLE IF EXISTS `Employee_login`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Employee_login` (
-  `employee_id` int(11) NOT NULL,
-  `password` varchar(45) NOT NULL,
-  PRIMARY KEY (`employee_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `dmc353_1` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
---
--- Dumping data for table `Employee_login`
---
-
-LOCK TABLES `Employee_login` WRITE;
-/*!40000 ALTER TABLE `Employee_login` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Employee_login` ENABLE KEYS */;
-UNLOCK TABLES;
+USE `dmc353_1`;
 
 --
 -- Table structure for table `Account`
@@ -76,57 +59,34 @@ INSERT INTO `Account` VALUES (1,'checking','50000.00','2001-01-01',1,1,2,2,NULL,
 UNLOCK TABLES;
 
 --
--- Table structure for table `Transaction`
+-- Table structure for table `Branch`
 --
 
-DROP TABLE IF EXISTS `Transaction`;
+DROP TABLE IF EXISTS `Branch`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Transaction` (
-  `transaction_id` int(11) NOT NULL AUTO_INCREMENT,
-  `transaction_type` enum('DEPOSIT','WITHDRAW','CHARGE','TRANSFER') NOT NULL,
-  `transaction_amount` decimal(10,2) DEFAULT NULL,
-  `transaction_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `account_number` int(11) DEFAULT NULL,
-  `transaction_fees` decimal(10,2) DEFAULT NULL,
-  `transaction_description` text,
-  PRIMARY KEY (`transaction_id`),
-  KEY `account` (`account_number`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+CREATE TABLE `Branch` (
+  `branchId` int(11) NOT NULL AUTO_INCREMENT,
+  `banchLocation` varchar(255) DEFAULT NULL,
+  `branchFax` char(10) DEFAULT NULL,
+  `branchPhone` char(10) DEFAULT NULL,
+  `branchOpeningDate` date DEFAULT NULL,
+  `branchManagedBy` int(11) DEFAULT NULL,
+  `branchBanking` tinyint(1) DEFAULT NULL,
+  `branchInvestment` tinyint(1) DEFAULT NULL,
+  `branchInsurance` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`branchId`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Transaction`
+-- Dumping data for table `Branch`
 --
 
-LOCK TABLES `Transaction` WRITE;
-/*!40000 ALTER TABLE `Transaction` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Transaction` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `Employee_Payroll`
---
-
-DROP TABLE IF EXISTS `Employee_Payroll`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Employee_Payroll` (
-  `pay_id` int(11) NOT NULL AUTO_INCREMENT,
-  `employee_id` int(11) NOT NULL,
-  `payment_date` date NOT NULL,
-  `payment_amount` decimal(10,2) NOT NULL,
-  PRIMARY KEY (`pay_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Employee_Payroll`
---
-
-LOCK TABLES `Employee_Payroll` WRITE;
-/*!40000 ALTER TABLE `Employee_Payroll` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Employee_Payroll` ENABLE KEYS */;
+LOCK TABLES `Branch` WRITE;
+/*!40000 ALTER TABLE `Branch` DISABLE KEYS */;
+INSERT INTO `Branch` VALUES (1,'SaintCatherine','5149999999','5146666666','2010-09-10',3,1,1,0),(2,'Montreal','5148877777','5148777345','2011-06-15',4,1,0,0),(3,'Laval','4875443443','4382343256','2007-11-15',5,0,0,1),(4,'Laval','4872232222','4383484934','2005-02-13',6,1,1,1),(5,'Torronto','4163345353','4172342353','2001-07-15',7,1,1,1);
+/*!40000 ALTER TABLE `Branch` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -137,12 +97,12 @@ DROP TABLE IF EXISTS `Charge_plans`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Charge_plans` (
-  `plan_id` int(11) NOT NULL AUTO_INCREMENT,
-  `plan_limit` int(11) DEFAULT NULL,
-  `plan_option` enum('Basic','Premuim','Ultimate') DEFAULT NULL,
-  `charge` decimal(10,2) DEFAULT NULL,
-  `charge_excess_limit` decimal(10,2) DEFAULT '0.00',
-  PRIMARY KEY (`plan_id`)
+  `branchPlanId` int(11) NOT NULL AUTO_INCREMENT,
+  `branchPlanLimit` int(11) DEFAULT NULL,
+  `branchPlanOption` enum('Basic','Premuim','Ultimate') DEFAULT NULL,
+  `branchCharge` decimal(10,2) DEFAULT NULL,
+  `branchChargeExcessLimit` decimal(10,2) DEFAULT '0.00',
+  PRIMARY KEY (`branchPlanId`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -154,82 +114,6 @@ LOCK TABLES `Charge_plans` WRITE;
 /*!40000 ALTER TABLE `Charge_plans` DISABLE KEYS */;
 INSERT INTO `Charge_plans` VALUES (1,25,'Basic','0.25','0.00'),(2,50,'Premuim','0.15','0.00'),(3,100,'Ultimate',NULL,'0.00');
 /*!40000 ALTER TABLE `Charge_plans` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `Interest_rate`
---
-
-DROP TABLE IF EXISTS `Interest_rate`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Interest_rate` (
-  `rate_id` int(11) NOT NULL AUTO_INCREMENT,
-  `percentage` decimal(10,2) DEFAULT NULL,
-  `type_of_account` enum('credit card','checking','saving','line of credit','loan') DEFAULT NULL,
-  `type_of_service` enum('credit','non-credit') DEFAULT NULL,
-  PRIMARY KEY (`rate_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Interest_rate`
---
-
-LOCK TABLES `Interest_rate` WRITE;
-/*!40000 ALTER TABLE `Interest_rate` DISABLE KEYS */;
-INSERT INTO `Interest_rate` VALUES (1,'0.06','credit card','credit'),(2,'0.02','saving','non-credit'),(3,'0.04','line of credit','credit');
-/*!40000 ALTER TABLE `Interest_rate` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `Employee_Schedule`
---
-
-DROP TABLE IF EXISTS `Employee_Schedule`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Employee_Schedule` (
-  `employee_id` int(11) NOT NULL,
-  `day` date NOT NULL,
-  `code` enum('working','holidays','sick_paid','sick_unpaid') NOT NULL,
-  `hours` decimal(10,2) NOT NULL,
-  `start_time` datetime NOT NULL,
-  PRIMARY KEY (`employee_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Employee_Schedule`
---
-
-LOCK TABLES `Employee_Schedule` WRITE;
-/*!40000 ALTER TABLE `Employee_Schedule` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Employee_Schedule` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `Client_Card`
---
-
-DROP TABLE IF EXISTS `Client_Card`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Client_Card` (
-  `client_card_number` char(16) NOT NULL,
-  `client_id` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
-  PRIMARY KEY (`client_card_number`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Client_Card`
---
-
-LOCK TABLES `Client_Card` WRITE;
-/*!40000 ALTER TABLE `Client_Card` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Client_Card` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -261,34 +145,53 @@ INSERT INTO `Client` VALUES (1,'Montreal, Canada','1982-05-21','2011-01-01','Kri
 UNLOCK TABLES;
 
 --
--- Table structure for table `Branch`
+-- Table structure for table `ClientCard`
 --
 
-DROP TABLE IF EXISTS `Branch`;
+DROP TABLE IF EXISTS `ClientCard`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Branch` (
-  `branch_id` int(11) NOT NULL AUTO_INCREMENT,
-  `location` varchar(255) DEFAULT NULL,
-  `fax` char(10) DEFAULT NULL,
-  `phone` char(10) DEFAULT NULL,
-  `opening_date` date DEFAULT NULL,
-  `managed_by` int(11) DEFAULT NULL,
-  `banking` tinyint(1) DEFAULT NULL,
-  `investment` tinyint(1) DEFAULT NULL,
-  `insurance` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`branch_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+CREATE TABLE `ClientCard` (
+  `clientCardNumber` char(25) NOT NULL,
+  `clientId` varchar(45) NOT NULL,
+  `clientPassword` varchar(45) NOT NULL,
+  PRIMARY KEY (`clientCardNumber`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Branch`
+-- Dumping data for table `ClientCard`
 --
 
-LOCK TABLES `Branch` WRITE;
-/*!40000 ALTER TABLE `Branch` DISABLE KEYS */;
-INSERT INTO `Branch` VALUES (1,'SaintCatherine','5149999999','5146666666','2010-09-10',3,1,1,0),(2,'Montreal','5148877777','5148777345','2011-06-15',4,1,0,0),(3,'Laval','4875443443','4382343256','2007-11-15',5,0,0,1),(4,'Laval','4872232222','4383484934','2005-02-13',6,1,1,1),(5,'Torronto','4163345353','4172342353','2001-07-15',7,1,1,1);
-/*!40000 ALTER TABLE `Branch` ENABLE KEYS */;
+LOCK TABLES `ClientCard` WRITE;
+/*!40000 ALTER TABLE `ClientCard` DISABLE KEYS */;
+INSERT INTO `ClientCard` VALUES ('5316625496891500','','user'),('5234673217449850','','user'),('5444698667572618','','user'),('5479396735697461','','user'),('5181879446019637','','user'),('5428624450048418','','user'),('5132802249268995','','user'),('5158476101551605','','user'),('5219338460953532','','user'),('5595915071231145','','user'),('4929230284827279','','user'),('4532586657888035','','user'),('4916824136974142','','user'),('4024007194660451','','user'),('4716185445297779','','user'),('4916261737772601','','user'),('4716435955632398','','user'),('4024007120757843','','user'),('4024007197456006','','user'),('4485015036883621','','user'),('347843549459076','','user'),('374949812235592','','user'),('370058802451807','','user'),('349778173154379','','user'),('373769765645881','','user'),('4539049359006','','user'),('4916514888406','','user'),('4024007177633','','user'),('4485580061579','','user'),('4716223500130','','user');
+/*!40000 ALTER TABLE `ClientCard` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Clients_own_account`
+--
+
+DROP TABLE IF EXISTS `Clients_own_account`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Clients_own_account` (
+  `clientId` int(11) NOT NULL DEFAULT '0',
+  `accountId` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`clientId`,`accountId`),
+  KEY `account_id` (`accountId`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Clients_own_account`
+--
+
+LOCK TABLES `Clients_own_account` WRITE;
+/*!40000 ALTER TABLE `Clients_own_account` DISABLE KEYS */;
+INSERT INTO `Clients_own_account` VALUES (1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10),(11,11),(12,12),(13,13),(14,14),(15,15),(16,16),(17,17),(18,18),(19,19),(20,20),(21,21),(22,22),(23,23),(24,24),(25,25),(26,26),(27,27),(28,28),(29,29),(30,30),(31,31),(32,32),(33,33),(34,34),(35,35),(36,36),(37,37),(38,38),(39,39),(40,40),(41,41),(42,42),(43,43),(44,44),(45,45),(46,46),(47,47),(48,48),(49,49),(50,50);
+/*!40000 ALTER TABLE `Clients_own_account` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -322,33 +225,134 @@ INSERT INTO `Employee` VALUES (1,'Financial Advisor','455 elm street','2011-09-3
 UNLOCK TABLES;
 
 --
--- Table structure for table `Clients_own_account`
+-- Table structure for table `Employee_Payroll`
 --
 
-DROP TABLE IF EXISTS `Clients_own_account`;
+DROP TABLE IF EXISTS `Employee_Payroll`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Clients_own_account` (
-  `client_id` int(11) NOT NULL DEFAULT '0',
-  `account_id` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`client_id`,`account_id`),
-  KEY `account_id` (`account_id`)
+CREATE TABLE `Employee_Payroll` (
+  `employeePayId` int(11) NOT NULL AUTO_INCREMENT,
+  `employeeId` int(11) NOT NULL,
+  `employeePaymentDate` date NOT NULL,
+  `employeePaymentAmount` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`employeePayId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Clients_own_account`
+-- Dumping data for table `Employee_Payroll`
 --
 
-LOCK TABLES `Clients_own_account` WRITE;
-/*!40000 ALTER TABLE `Clients_own_account` DISABLE KEYS */;
-INSERT INTO `Clients_own_account` VALUES (1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10),(11,11),(12,12),(13,13),(14,14),(15,15),(16,16),(17,17),(18,18),(19,19),(20,20),(21,21),(22,22),(23,23),(24,24),(25,25),(26,26),(27,27),(28,28),(29,29),(30,30),(31,31),(32,32),(33,33),(34,34),(35,35),(36,36),(37,37),(38,38),(39,39),(40,40),(41,41),(42,42),(43,43),(44,44),(45,45),(46,46),(47,47),(48,48),(49,49),(50,50);
-/*!40000 ALTER TABLE `Clients_own_account` ENABLE KEYS */;
+LOCK TABLES `Employee_Payroll` WRITE;
+/*!40000 ALTER TABLE `Employee_Payroll` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Employee_Payroll` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Dumping routines for database 'dmc353_1'
+-- Table structure for table `Employee_Schedule`
 --
+
+DROP TABLE IF EXISTS `Employee_Schedule`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Employee_Schedule` (
+  `employeeId` int(11) NOT NULL,
+  `employeeScheduleDay` date NOT NULL,
+  `employeeScheduleCode` enum('working','holidays','sick_paid','sick_unpaid') NOT NULL,
+  `employeeScheduleHours` decimal(10,2) NOT NULL,
+  `employeeScheduleStartTime` datetime NOT NULL,
+  PRIMARY KEY (`employeeId`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Employee_Schedule`
+--
+
+LOCK TABLES `Employee_Schedule` WRITE;
+/*!40000 ALTER TABLE `Employee_Schedule` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Employee_Schedule` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Employee_login`
+--
+
+DROP TABLE IF EXISTS `Employee_login`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Employee_login` (
+  `employeeId` int(11) NOT NULL,
+  `employeeLoginPassword` varchar(45) NOT NULL,
+  PRIMARY KEY (`employeeId`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Employee_login`
+--
+
+LOCK TABLES `Employee_login` WRITE;
+/*!40000 ALTER TABLE `Employee_login` DISABLE KEYS */;
+INSERT INTO `Employee_login` VALUES (1,'admin'),(2,'admin'),(3,'admin'),(4,'admin'),(5,'admin'),(6,'admin'),(7,'admin'),(8,'admin'),(9,'admin'),(10,'admin'),(11,'admin'),(12,'admin'),(13,'admin'),(14,'admin'),(15,'admin'),(16,'admin'),(17,'admin'),(18,'admin'),(19,'admin'),(20,'admin');
+/*!40000 ALTER TABLE `Employee_login` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Interest_rate`
+--
+
+DROP TABLE IF EXISTS `Interest_rate`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Interest_rate` (
+  `interestRateId` int(11) NOT NULL AUTO_INCREMENT,
+  `interestRatePercentage` decimal(10,2) DEFAULT NULL,
+  `typeOfAccount` enum('credit card','checking','saving','line of credit','loan') DEFAULT NULL,
+  `typeOfService` enum('credit','non-credit') DEFAULT NULL,
+  PRIMARY KEY (`interestRateId`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Interest_rate`
+--
+
+LOCK TABLES `Interest_rate` WRITE;
+/*!40000 ALTER TABLE `Interest_rate` DISABLE KEYS */;
+INSERT INTO `Interest_rate` VALUES (1,'0.06','credit card','credit'),(2,'0.02','saving','non-credit'),(3,'0.04','line of credit','credit');
+/*!40000 ALTER TABLE `Interest_rate` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Transaction`
+--
+
+DROP TABLE IF EXISTS `Transaction`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Transaction` (
+  `transactionId` int(11) NOT NULL AUTO_INCREMENT,
+  `transactionType` enum('DEPOSIT','WITHDRAW','CHARGE','TRANSFER') NOT NULL,
+  `transactionAmount` decimal(10,2) DEFAULT NULL,
+  `transactionDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `accountNumber` int(11) DEFAULT NULL,
+  `transactionFees` decimal(10,2) DEFAULT NULL,
+  `transactionDescription` text,
+  PRIMARY KEY (`transactionId`),
+  KEY `account` (`accountNumber`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Transaction`
+--
+
+LOCK TABLES `Transaction` WRITE;
+/*!40000 ALTER TABLE `Transaction` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Transaction` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -359,4 +363,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-07-26  0:38:06
+-- Dump completed on 2011-07-26  2:14:43

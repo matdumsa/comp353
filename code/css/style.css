@@ -41,7 +41,7 @@ body {
 	height: 1em; /* .push must be the same height as .footer */
 }
 .footer {
-	margin-top:-1.6em;
+	margin-top:0.6em;
 	border-top:1px #4297D7 solid;
 }
 
@@ -68,4 +68,37 @@ h3 {
 	font-size: 1em;
 	margin-top:0.6em;
 	margin-bottom:0.1em;
+}
+
+.template, .hidden { display:none; }
+
+table thead tr td { font-weight: bold; } 
+table td { padding:0.1em 1em; }
+
+tbody tr:nth-child(odd) { background-color: rgba(0, 0, 0, 0.2); /* green, 10% alpha */ }
+
+
+/***** BSOD ******/
+body.bsod {
+    background:#0000aa;
+    color:#ffffff;
+    font-family:courier;
+    font-size:12pt;
+    text-align:center;
+}
+
+blink.bsod {
+    color:yellow;
+}
+
+.bsod.neg {
+    background:#fff;
+    color:#0000aa;
+    padding:2px 8px;
+    font-weight:bold;
+}
+
+p.bsod {
+    margin:30px 100px;
+    text-align:left;
 }

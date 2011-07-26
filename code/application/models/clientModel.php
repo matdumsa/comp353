@@ -18,9 +18,9 @@ class clientModel extends CI_Model {
     function select($ClientId = "*")
     {
     	if ($ClientId == "*")
-    	        $query = $this->db->get('Client');
+    	        $query = $this->db->get('Client_Overview');
 		else
-    			$query = $this->db->get_where('Client',array($id => $ClientID));
+    			$query = $this->db->get_where('Client_Overview',array($id => $ClientID));
         return $query->result();
     }
 

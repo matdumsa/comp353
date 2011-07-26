@@ -26,7 +26,7 @@ class Client extends CI_Controller {
 	}
 	
 	public function getList() {
-	
+		hasRight("getClientList", $this->session);			
 		$this->load->model("clientModel");
 		print json_encode($this->clientModel->select("*"));
 	}
