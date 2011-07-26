@@ -16,5 +16,9 @@ class Account extends CI_Controller {
 		// Make sure you have the right to modify
 	
 	}
+	
+	public function view() {
+		print json_encode(array("status"=>"ok"));
+	}
 }
 

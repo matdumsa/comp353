@@ -16,5 +16,20 @@ class Client extends CI_Controller {
 		// Make sure you have the right to modify
 	
 	}
+	
+	public function view() {
+		// Make sure you have the right to modify
+		$this->load->library('session');
+
+
+		$this->load->view('clientView');
+	}
+	
+	public function getList() {
+	
+		$this->load->model("clientModel");
+		print json_encode($this->clientModel->select("*"));
+	}
+
 }
 
