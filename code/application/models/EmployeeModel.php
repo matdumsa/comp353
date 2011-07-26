@@ -1,6 +1,6 @@
 <?php
 
-class EmplyeeModel extends CI_Model {
+class EmployeeModel extends CI_Model {
 
 
 		protected $id = "employeeId";
