@@ -10,7 +10,10 @@ class Employee extends CI_Model {
     
     function select($EmployeeId = "*")
     {
-        $query = $this->db->get('Employee');
+    	if ($ClientId = "*")
+    	        $query = $this->db->get('Employee');
+		else
+    			$query = $this->db->query("SELECT * FROM Employee where clinetId =" . $ClientID);
         return $query->result();
     }
 
