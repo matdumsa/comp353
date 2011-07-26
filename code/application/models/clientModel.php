@@ -2,6 +2,13 @@
 
 class clientModel extends CI_Model {
 
+		protected $id = "clientId";
+		protected $dateofbirth = "clientDateOfBirth";
+		protected $address = "clientAddress";
+		protected $joiningdate = "clientJoiningDate";
+		protected $name = "clientName";
+		protected $category = "clientCategory";
+
        function __construct()
     {
         // Call the Model constructor
@@ -13,7 +20,7 @@ class clientModel extends CI_Model {
     	if ($ClientId == "*")
     	        $query = $this->db->get('Client');
 		else
-    			$query = $this->db->get_where('Client',array('clientId' => $ClientID));
+    			$query = $this->db->get_where('Client',array($id => $ClientID));
         return $query->result();
     }
 
@@ -21,11 +28,11 @@ class clientModel extends CI_Model {
     {
     
     	$record = array(
-	      	"address" => $Address,
-	        "dateOfBirth" => $DateOfBirth,
-	        "joiningDate" => date(),
-	        "name" => $Name,
-	        "category" => $Category);
+	      	$address => $Address,
+	        $dateofbirth => $DateOfBirth,
+	        $joiningdate => date(),
+	        $name => $Name,
+	        $category => $Category);
 
         $this->db->insert('Client', $record);
        	return $this->db->insertid();
@@ -34,18 +41,16 @@ class clientModel extends CI_Model {
     function update($ClientId,$Address,$BirthOfDate,$Name,$Category)
     {
     	$record = array(
-	      	"address" => $Address,
-	        "dateOfBirth" => $DateOfBirth,
-	        "joiningDate" => date(),
-	        "name" => $Name,
-	        "category" => $Category,
-	        "clientID"=> $ClientID);
-        $this->db->update('Client', $record, array('clientId' => $ClientID ));
+	      	$address => $Address,
+	        $dateofbirth => $DateOfBirth,
+	        $name => $Name,
+	        $category => $Category);
+        $this->db->update('Client', $record, array($id => $ClientID ));
     }
     
      function delete($clientId)
     {
-        $this->db->delete('Client', array('clientId' => $ClientId));
+        $this->db->delete('Client', array($id => $ClientId));
     }
 
 }
