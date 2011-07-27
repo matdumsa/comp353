@@ -17,15 +17,15 @@ drop view IF EXISTS Password;
 
 create view Password as
 
-select clientCardNumber as Username, clientPassword as Password, 'client' as Type
+select clientCardNumber as Username, clientPassword as Password, 'client' as Type, 'clientId' as Id
 from ClientCard
 union all
-select el.employeeId, employeeLoginPassword, 'manager' as Type
+select el.employeeId, employeeLoginPassword, 'manager' as Type, el.employeeId as Id
 from Employee_login el
 join Employee e on e.employeeId = el.employeeId
 where e.employeeId in (select branchManagedBy from Branch)
 union all
-select el.employeeId, employeeLoginPassword, 'clerk' as Type
+select el.employeeId, employeeLoginPassword, 'clerk' as Type, el.employeeId as Id
 from Employee_login el
 join Employee e on e.employeeId = el.employeeId
 where e.employeeId not in (select branchManagedBy from Branch)
