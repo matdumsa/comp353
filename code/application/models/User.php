@@ -11,8 +11,12 @@ class User extends CI_Model {
     
 
 	public function getEmployeeInformation($employee_id) {
-		$information = array("type"=>"employee", "id" => $employee_id);
-		return $information;
+
+            $schedule = array();
+            $pay_information = array();
+            $information = array("type"=>"employee", "id" => $employee_id, "schedule" => $schedule, "pay" => $pay_information);
+                   
+            return $information;
 	}
 
 	public function getClientInformation($client_id) {
