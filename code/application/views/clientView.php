@@ -37,28 +37,29 @@
 <script>
 
 	//Make the button pretty
-	$( "#newClient" ).button({
+	$( "#newClient" ).button(
+	{
 	    icons: {
 	        primary: "ui-icon-plus"
-	    }}).click(function()
-	    {
-    		$("#newClientForm").dialog(
-    		{
-    			"modal":true,
-			    "buttons":
-			    { 
-			    	"create":function()
-			    	{
-			    		//Code for creating an employee
-			    	}
-			    	, "cancel":function()
-			    	{
-			    		//Code for creating cancelling
-			    		$(this).dialog("close");
-			    	}
-			    }
-    			
-    		});
+		}
+	}).click(function()
+    {
+		$("#newClientForm").dialog(
+		{
+			"modal":true,
+		    "buttons":
+		    { 
+		    	"create":function()
+		    	{
+		    		//Code for creating an employee
+		    	}
+		    	, "cancel":function()
+		    	{
+		    		//Code for creating cancelling
+		    		$(this).dialog("close");
+		    	}
+		    }
+		});
     });
     
     //Get the list of clients
