@@ -109,3 +109,5 @@ p.bsod {
 .fr { float:right; }
 .cl { clear:both; }
 .hidden { display:none; }
+.showOnRowHover { visibility: hidden; }
+tr:hover .showOnRowHover { visibility: visible; }
