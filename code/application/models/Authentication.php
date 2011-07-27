@@ -13,7 +13,7 @@ class Authentication extends CI_Model {
     {
 		$result = $this->db->get_where("Password",array("Username"=>$username, "Password"=>$password));
 		if ($result->num_rows() == 1)
-			return $result->row(0)->Type;
+			return $result->row(0);
 		else
 			return false;
     }

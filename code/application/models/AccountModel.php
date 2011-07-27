@@ -22,7 +22,7 @@ class AccountModel extends CI_Model {
     
     function select($AccountNumber = "*")
     {
-    	if ($EmployeeId == "*")
+    	if ($AccountNumber == "*")
     	        $query = $this->db->get('Account');
 		else
     			$query = $this->db->get_where('Account',array($id => $AccountNumber));

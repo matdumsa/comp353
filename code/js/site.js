@@ -14,9 +14,9 @@ $(function() {	//To be run when DOM is constructed
 			, "error":function(XMLHttpRequest, textStatus, errorThrown)
 			{
 				if (XMLHttpRequest.status == 404) 
-				{
-					BSOD("Error 404 accessing " + $("#tabs").data("last-url-requested"));
-				}
+					BSOD("Error 404 accessing " + $("#tabs").data("last-url-requested") + "<hr>" + XMLHttpRequest.responseText);
+				else if (XMLHttpRequest.status == 500) 
+					BSOD("Error 500 accessing " + $("#tabs").data("last-url-requested") + "<hr>" + $(XMLHttpRequest.responseText).text());
 				else
 					showNetworkError(reloadTab);
 			}
@@ -73,7 +73,7 @@ function parseResponseToFields(data, fieldContainer, wrapAround)
 	fieldContainer = $(fieldContainer);
 	$.each(data, function(fieldName, fieldValue)
 	{	
-		var cell = fieldContainer.find("." + fieldName).empty();
+		var cell = fieldContainer.find("." + fieldName);
 
 		if (!fieldValue)
 			return;
@@ -86,6 +86,8 @@ function parseResponseToFields(data, fieldContainer, wrapAround)
 			{
 					cell.append($(wrapAround[fieldName]).text(value));
 			}
+			else if (cell.text().indexOf("*")>=0) 
+				cell.text(cell.text().replace("*",value));
 			else //Simple text only
 			{
 				cell.text(value);	

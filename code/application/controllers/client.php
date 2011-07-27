@@ -18,9 +18,6 @@ class Client extends CI_Controller {
 	}
 	
 	public function view() {
-		// Make sure you have the right to modify
-		$this->load->library('session');
-
 
 		$this->load->view('clientView');
 	}

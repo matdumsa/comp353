@@ -4,7 +4,7 @@ class Employee extends CI_Controller {
 
 	public function add($field1, $field2, $field3) {
 		// Make sure you have the right to add
-	
+		
 	}
 
 	public function remove($client_id) {
@@ -16,5 +16,17 @@ class Employee extends CI_Controller {
 		// Make sure you have the right to modify
 	
 	}
+	
+	public function view() {
+
+		$this->load->view('employeeView');
+	}
+	
+	public function getList() {
+		hasRight("getEmployeeList", $this->session);			
+		$this->load->model("EmployeeModel");
+		print json_encode($this->EmployeeModel->select("*"));
+	}
+
 }
 

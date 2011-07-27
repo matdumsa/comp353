@@ -36,9 +36,9 @@ class Session extends CI_Controller {
 			echo json_encode(array("loginError"=>"true", "reason"=>"Invalid username or password, please try again"));
 		}
 		else {
-			$type = $auth_result;
 			$this->session->set_userdata(array("loggedIn" => true));
-			$this->session->set_userdata(array("type" => "client"));
+			$this->session->set_userdata(array("type" => $auth_result->Type));
+			$this->session->set_userdata(array("id" => $auth_result->Id));
 			print json_encode(array("loginError"=>"false"));
 		}
 		
