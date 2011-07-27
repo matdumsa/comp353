@@ -70,12 +70,12 @@ h3 {
 	margin-bottom:0.1em;
 }
 
-.template, .hidden { display:none; }
+.template { display:none; }
 
 table thead tr td { font-weight: bold; } 
 table td { padding:0.1em 1em; }
 
-tbody tr:nth-child(odd) { background-color: rgba(0, 0, 0, 0.2); /* green, 10% alpha */ }
+tbody.alternateBg tr:nth-child(odd) { background-color: rgba(0, 0, 0, 0.2); /* green, 10% alpha */ }
 
 
 /***** BSOD ******/
@@ -102,3 +102,10 @@ p.bsod {
     margin:30px 100px;
     text-align:left;
 }
+
+
+/***** General *****/
+.fl { float:left; }
+.fr { float:right; }
+.cl { clear:both; }
+.hidden { display:none; }

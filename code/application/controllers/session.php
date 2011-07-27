@@ -33,7 +33,7 @@ class Session extends CI_Controller {
 
 
 		if ($auth_result == false) {
-			echo json_encode(array("loginError"=>"true"));
+			echo json_encode(array("loginError"=>"true", "reason"=>"Invalid username or password, please try again"));
 		}
 		else {
 			$type = $auth_result;

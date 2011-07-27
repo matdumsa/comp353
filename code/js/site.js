@@ -8,7 +8,18 @@ $(function() {	//To be run when DOM is constructed
 		,show: function(event, ui){{ tabCallBack(); }}
 		,ajaxOptions:
 		{
-			"error":function(XMLHttpRequest, textStatus, errorThrown) {showNetworkError(reloadTab);}
+			"beforeSend":function(jqXHR, settings) {
+				$("#tabs").data("last-url-requested", settings.url);
+			}
+			, "error":function(XMLHttpRequest, textStatus, errorThrown)
+			{
+				if (XMLHttpRequest.status == 404) 
+				{
+					BSOD("Error 404 accessing " + $("#tabs").data("last-url-requested"));
+				}
+				else
+					showNetworkError(reloadTab);
+			}
 		  , "success": function(response) 
 			{
 				if (!response || response == "")
@@ -131,9 +142,11 @@ function getData(url, params, callback, options)
 	, "error":function(XMLHttpRequest, textStatus, errorThrown)
 	{ 
 		updateTimer();
-		if (textStatus == "parsererror")	//Not a valid JSON object
+		if (XMLHttpRequest.status == 404)
+			BSOD("Error 404 for " + url);
+		else if (textStatus == "parsererror")	//Not a valid JSON object
 			BSOD("Not a valid JSON object. " + XMLHttpRequest.responseText);
-		else 
+		else
 			showNetworkError(selfRepeatCall); 
 	}
 	

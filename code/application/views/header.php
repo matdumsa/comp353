@@ -47,8 +47,19 @@
 		<form action="" onSubmit="return false;">
 			<span class="ui-icon ui-icon-locked" style="float:left; margin-right:5px;"></span>
 			<div class="modalInstruction"><p>You have to be logged in to continue...</p></div>
-			<label for="username">Username</label><input type="text" class="username" name="username"><br>
-			<label for="password">Password</label><input type="password" class="password" name="password">
+			<div class="cl">
+				<table>
+					<tr>
+						<td><label for="username">Username</label></td>
+						<td><input type="text" class="username" name="username"/></td>
+					</tr>
+					<tr>
+						<td><label for="password">Password</label></td>
+						<td><input type="password" class="password" name="password"/></td>
+					</tr>
+				</table>
+				
+			</div>
 		</form>
 	</div>
 

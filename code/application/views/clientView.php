@@ -12,7 +12,7 @@
 			</tr>
 		</thead>
 		
-		<tbody class="client_list">
+		<tbody class="client_list alternateBg">
 			<tr class="template">
 				<td class="clientId"></td>
 				<td class="clientName"></td>
