@@ -28,6 +28,8 @@ class EmployeeModel extends CI_Model {
 
     function insert($Address,$Title,$Name,$HourlySalary,$BranchId)
     {
+
+	    $this->load->helper('date');
     
     	$record = array(
 	      	$this->address => $Address,
