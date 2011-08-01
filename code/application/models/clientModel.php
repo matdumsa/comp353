@@ -41,19 +41,20 @@ class clientModel extends CI_Model {
        	return $this->select($id);
     }
 
-    function update($ClientId,$Address,$BirthOfDate,$Name,$Category)
+    function update($ClientId,$Address,$DateOfBirth,$Name,$Category)
     {
     	$record = array(
-	      	$address => $Address,
-	        $dateofbirth => $DateOfBirth,
-	        $name => $Name,
-	        $category => $Category);
-        $this->db->update('Client', $record, array($id => $ClientID ));
+	      	$this->address => $Address,
+	        $this->dateofbirth => $DateOfBirth,
+	        $this->name => $Name,
+	        $this->category => $Category);
+        $this->db->update('Client', $record, array($this->id => $ClientId ));
+        return $this->select($ClientId);
     }
     
      function delete($clientId)
     {
-        $this->db->delete('Client', array($id => $ClientId));
+        $this->db->delete('Client', array($this->id => $clientId));
     }
 
 }

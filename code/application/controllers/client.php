@@ -6,17 +6,25 @@ class Client extends CI_Controller {
 		// Make sure you have the right to add
 		
 		$this->load->model("clientModel");
-		$response = $this->clientModel->insert($this->input->post('address'),$this->input->post('date_of_birth'),$this->input->post('name'),$this->input->post('category'));
+		$response = $this->clientModel->insert($this->input->post('clientAddress'),$this->input->post('clientDateOfBirth'),$this->input->post('clientName'),$this->input->post('clientCategory'));
 		print json_encode($response);
 	}
 
 	public function remove($client_id) {
 		// Make sure you have the right to remove
+
+		$this->load->model("clientModel");
+		$response = $this->clientModel->delete($client_id);
+		print '{"status":"ok"}';
 	
 	}
 	
-	public function modify($client_id, $field1, $field2) {
+	public function modify($client_id) {
 		// Make sure you have the right to modify
+
+		$this->load->model("clientModel");
+		$response = $this->clientModel->update($client_id, $this->input->post('clientAddress'),$this->input->post('clientDateOfBirth'),$this->input->post('clientName'),$this->input->post('clientCategory'));
+		print json_encode($response);
 	
 	}
 	
