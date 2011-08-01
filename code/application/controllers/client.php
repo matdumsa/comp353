@@ -2,9 +2,12 @@
 
 class Client extends CI_Controller {
 
-	public function add($field1, $field2, $field3) {
+	public function add() {
 		// Make sure you have the right to add
 		
+		$this->load->model("clientModel");
+		$response = $this->clientModel->insert($this->input->post('address'),$this->input->post('date_of_birth'),$this->input->post('name'),$this->input->post('category'));
+		print json_encode($response);
 	}
 
 	public function remove($client_id) {

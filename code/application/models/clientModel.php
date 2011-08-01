@@ -20,22 +20,25 @@ class clientModel extends CI_Model {
     	if ($ClientId == "*")
     	        $query = $this->db->get('Client_Overview');
 		else
-    			$query = $this->db->get_where('Client_Overview',array($id => $ClientID));
+    			$query = $this->db->get_where('Client_Overview',array($this->id => $ClientId));
         return $query->result();
     }
 
     function insert($Address,$DateOfBirth,$Name,$Category)
     {
     
+	    $this->load->helper('date');
+
     	$record = array(
-	      	$address => $Address,
-	        $dateofbirth => $DateOfBirth,
-	        $joiningdate => date(),
-	        $name => $Name,
-	        $category => $Category);
+	      	$this->address => $Address,
+	        $this->dateofbirth => $DateOfBirth,
+	        $this->joiningdate => date('Y-m-d H:i:s', now()),
+	        $this->name => $Name,
+	        $this->category => $Category);
 
         $this->db->insert('Client', $record);
-       	return $this->db->insertid();
+       	$id = $this->db->insert_id();
+       	return $this->select($id);
     }
 
     function update($ClientId,$Address,$BirthOfDate,$Name,$Category)

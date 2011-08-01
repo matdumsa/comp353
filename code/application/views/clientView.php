@@ -30,7 +30,7 @@
 
 </div>
 
-<div id="newClientForm" title="Create a new client">
+<div id="newClientForm" class="hidden" title="Create a new client">
 	<?=$this->load->view("form/newClient");?>
 </div>
 
@@ -52,6 +52,8 @@
 		    	"create":function()
 		    	{
 		    		//Code for creating an employee
+		    		submitForm();
+
 		    	}
 		    	, "cancel":function()
 		    	{
@@ -70,4 +72,13 @@
 		});
 	})
 
+	function submitForm() {
+		$.post("/client/add/", $("#newClientForm input").serialize(), function(response)
+		{
+			
+			var nr = $(".client_list tr.template").clone().removeClass("template").appendTo("tbody.client_list");
+			parseResponseToFields(response[0], nr);	
+		}, "json");
+
+	}
 </script>

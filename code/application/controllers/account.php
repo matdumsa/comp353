@@ -2,9 +2,11 @@
 
 class Account extends CI_Controller {
 
-	public function add($field1, $field2, $field3) {
+	public function add() {
 		// Make sure you have the right to add
-		
+		$this->load->model("AccountModel");
+		$response = $this->AccountModel->insert($this->post("field1"));		
+		print json_encode($response);
 	}
 
 	public function remove($client_id) {

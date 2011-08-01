@@ -1,13 +1,9 @@
-<form>
-<fieldset>
-<legend>Client Registration</legend>
-<div align="center">
-Client Id: <input type="text" name="client_id"><br> 
-Address:<input type="text" name="address"><br>
-Date of birth:<input type="text" class="datepicker" name="date_of_birth"><br>
-Name:<input type="text" name="name"><br>
-Category:<input type="text" name="category"><br>
-<br>
-<input type="submit" value="Submit">
- </div>
-</form>
+	<fieldset>
+	<legend>Client Registration</legend>
+	<table>
+		<tr><td>Name</td><td><input type="text" name="name"></td></tr>
+		<tr><td>Address</td><td><input type="text" name="address"></td></tr>
+		<tr><td>Date of birth</td><td><input type="text" class="datepicker" name="date_of_birth"></td></tr>
+		<tr><td>Category</td><td><input type="text" name="category"></td></tr>
+	</table>
+	</fieldset>
