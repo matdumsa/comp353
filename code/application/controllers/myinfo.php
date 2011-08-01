@@ -12,6 +12,13 @@ class MyInfo extends CI_Controller {
 			$this->load->view("myinfo_employee", $myinfo);
 
 	}
+        
+        
+       public function getInformation() {
+	$this->load->model("User");
+	$myinfo = $this->User->getMyInformation();
+        print json_encode($myinfo);
+        }        
 }
 
 /* End of file welcome.php */
