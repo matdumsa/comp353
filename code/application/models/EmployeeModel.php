@@ -22,39 +22,42 @@ class EmployeeModel extends CI_Model {
     	if ($EmployeeId == "*")
     	        $query = $this->db->get('Employee');
 		else
-    			$query = $this->db->get_where('Employee',array($id => $EmployeeId));
+    			$query = $this->db->get_where('Employee',array($this->id => $EmployeeId));
         return $query->result();
     }
 
-    function insert($Address,$Title,$Name,$StartDate,$HourlySalary,$BranchId)
+    function insert($Address,$Title,$Name,$HourlySalary,$BranchId)
     {
     
     	$record = array(
-	      	$address => $Address,
-	        $title => $Title,
-	        $startdate => date(),
-	        $name => $Name,
-	        $hourlysalary => $HourlySalary,
-	        $branchid => $BranchId );
+	      	$this->address => $Address,
+	        $this->title => $Title,
+	        $this->startdate => date('Y-m-d H:i:s', now()),
+	        $this->name => $Name,
+	        $this->hourlysalary => $HourlySalary,
+	        $this->branchid => $BranchId );
 
         $this->db->insert('Employee', $record);
-       	return $this->db->insertid();
+       	$id = $this->db->insert_id();
+       	return $this->select($id);
     }
 
     function update($EmployeeId,$Address,$Title,$Name,$HourlySalary,$BranchId)
     {
     	$record = array(
-	      	$address => $Address,
-	        $title => $Title,
-	        $name => $Name,
-	        $hourlysalary => $HourlySalary,
-	        $branchid => $BranchId);
-        $this->db->update('Employee', $record, array($id => $EmployeeId ));
+	      	$this->address => $Address,
+	        $this->title => $Title,
+	        $this->name => $Name,
+	        $this->hourlysalary => $HourlySalary,
+	        $this->branchid => $BranchId);
+        $this->db->update('Employee', $record, array($this->id => $EmployeeId ));
+        return $this->select($EmployeeId);
+        
     }
     
      function delete($EmployeeId)
     {
-        $this->db->delete('Employee', array($id => $EmployeeId));
+        $this->db->delete('Employee', array($this->id => $EmployeeId));
     }
 
 }
