@@ -25,45 +25,49 @@ class AccountModel extends CI_Model {
     	if ($AccountNumber == "*")
     	        $query = $this->db->get('Account');
 		else
-    			$query = $this->db->get_where('Account',array($id => $AccountNumber));
+    			$query = $this->db->get_where('Account',array($this->id => $AccountNumber));
         return $query->result();
     }
 
     function insert($Type,$Balance,$Option,$Branch,$Rate,$Plan,$CreditLimit,$Level)
     {
-    
+   	    $this->load->helper('date');
+
     	$record = array(
-	      	$type => $Type,
-	        $balance => $Balance,
-	        $createdate => date(),
-	        $option => $Option,
-	        $branch => $Branch,
-	        $rate => $Rate,
-	        $plan => $Plan,
-	        $creditlimit => $CreditLimit,
-	        $level => $Level );
+	      	$this->type => $Type,
+	        $this->balance => $Balance,
+	        $this->createdate => date('Y-m-d H:i:s', now()),
+	        $this->option => $Option,
+	        $this->branch => $Branch,
+	        $this->rate => $Rate,
+	        $this->plan => $Plan,
+	        $this->creditlimit => $CreditLimit,
+	        $this->level => $Level );
 
         $this->db->insert('Account', $record);
-       	return $this->db->insertid();
+       	$id = $this->db->insert_id();
+       	return $this->select($id);
     }
 
-    function update($AccountNumber,$Type,$Option,$Branch,$Rate,$Plan,$CreditLimit,$Level)
+    function update($AccountNumber,$Type,$Option,$Branch,$Rate,$Plan,$CreditLimit,$Level,$Balance)
     {
     	
     	$record = array(
-	      	$type => $Type,
-	        $option => $Option,
-	        $branch => $Branch,
-	        $rate => $Rate,
-	        $plan => $Plan,
-	        $creditlimit => $CreditLimit,
-	        $level => $Level );
-        $this->db->update('Account', $record, array($id => $AccountNumber ));
+	      	$this->type => $Type,
+	        $this->option => $Option,
+	        $this->branch => $Branch,
+	        $this->rate => $Rate,
+	        $this->plan => $Plan,
+	        $this->creditlimit => $CreditLimit,
+	        $this->level => $Level,
+	        $this->balance => $Balance);
+        $this->db->update('Account', $record, array($this->id => $AccountNumber ));
+       	return $this->select($AccountNumber);
     }
     
      function delete($AccountNumber)
     {
-        $this->db->delete('Account', array($id => $AccountNumber));
+        $this->db->delete('Account', array($this->id => $AccountNumber));
     }
 
 }
