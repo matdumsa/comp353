@@ -59,7 +59,19 @@ class Account extends CI_Controller {
 
 		$this->load->view('accountView', $data);
 	}
-	
+
+	public function associate($account_id, $client_id) {
+		$this->load->model("AccountModel");
+		$this->AccountModel->associate($account_id, $client_id);
+		print '{"status":"ok"}';
+	}	
+
+	public function dissociate($account_id, $client_id) {
+		$this->load->model("AccountModel");
+		$this->AccountModel->dissociate($account_id, $client_id);			
+		print '{"status":"ok"}';
+	}	
+
 	public function getList() {
 		hasRight("getAccountList", $this->session);			
 		$this->load->model("AccountModel");

@@ -22,7 +22,7 @@
 				<td class="clientName"></td>
 				<td class="accountCount"></td>
 				<td class="netValue">$*</td>
-				<td class=""><span class="showOnRowHover ui-icon ui-icon-trash"></span></td>
+				<td class=""><span class="showOnRowHover ui-icon ui-icon-trash fl"></span><span class="showOnRowHover fakeLink fl grantAccount">[grant account access]</span></td>
 			</tr>
 		</tbody>
 	</table>
@@ -129,15 +129,29 @@
 	
 	function appendRow(data) {
 		var nr;
-		if ($("#client-" + data.clientId).length >0)
+		if ($("#client-" + data.clientId).length >0) {
+			//recycle
+			nr = $(".client_list tr.template").clone().removeClass("template").attr("id", "client-" + data.clientId);
+			$("#client-" + data.clientId).replaceWith(nr);
 			nr = $("#client-" + data.clientId);
+		}
 		else
 			nr = $(".client_list tr.template").clone().removeClass("template").appendTo("tbody.client_list").attr("id", "client-" + data.clientId);
 
 		parseResponseToFields(data, nr);
 		nr.find("span.ui-icon-pencil").unbind("click").click(function() { openForm(data); });
 		nr.find("span.ui-icon-trash").unbind("click").click(function() { askForDelete(data); });
-
+		nr.find("span.grantAccount").unbind("click").click(function() { associateWithAccount(data); });
 	}
 	
+	function associateWithAccount(client, account) {
+		if (!account)
+			return associateWithAccount(client, prompt("Please enter account id to associate this user with"));
+		$.getJSON("/account/associate/" + account + "/" + client.clientId, function()  {
+			$.getJSON("/client/getInfo/" + client.clientId, function(response) {
+				appendRow(response[0]);
+				alert(client.clientName + " can now access account #" + account);
+			});
+		});
+	}
 </script>

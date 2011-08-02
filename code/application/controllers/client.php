@@ -39,5 +39,11 @@ class Client extends CI_Controller {
 		print json_encode($this->clientModel->select("*"));
 	}
 
+	public function getInfo($client_id) {
+		hasRight("getClientList", $this->session);			
+		$this->load->model("clientModel");
+		print json_encode($this->clientModel->select($client_id));
+	}
+
 }
 

@@ -48,6 +48,16 @@ class AccountModel extends CI_Model {
        	$id = $this->db->insert_id();
        	return $this->select($id);
     }
+    
+    function associate($account_id, $client_id) {
+		$record = array("clientId" => $client_id, "accountId" => $account_id);
+        $this->db->insert('Clients_own_account', $record);
+    }
+    
+    function dissociate($account_id, $client_id) {
+		$record = array("clientId" => $client_id, "accountId" => $account_id);
+        $this->db->delete('Account', $record);
+    }
 
     function update($AccountNumber,$Type,$Option,$Branch,$Rate,$Plan,$CreditLimit,$Level,$Balance)
     {
