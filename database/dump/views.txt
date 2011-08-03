@@ -17,7 +17,7 @@ drop view IF EXISTS Password;
 
 create view Password as
 
-select clientCardNumber as Username, clientPassword as Password, 'client' as Type, clientId as Id
+select cast(clientCardNumber as varchar(25)) as Username, clientPassword as Password, 'client' as Type, clientId as Id
 from ClientCard
 union all
 select el.employeeId, employeeLoginPassword, 'manager' as Type, el.employeeId as Id
