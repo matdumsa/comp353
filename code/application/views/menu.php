@@ -5,7 +5,7 @@ switch ($type) {
     case "client":
 	?>
 		<li><a href="account/mine">Accounts</a></li>	
-		<li><a href="transaction/mine">Transactions</a></li>	
+		<li><a href="transaction/view">Transactions</a></li>	
 		<li><a href="myinfo">My information</a></li>	
 	<?php
         break;

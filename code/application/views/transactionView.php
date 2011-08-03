@@ -13,7 +13,7 @@
 			</tr>
 		</thead>
 		
-		<tbody class="client_list alternateBg">
+		<tbody class="transaction_list alternateBg">
 			<tr class="template">
 				<td class="accountNumber"></td>
 				<td class="transactionId"></td>
@@ -34,9 +34,19 @@
     //Get the list of clients
 	getData("transaction/getList/5", {}, function(response) {
 		$.each(response, function(i,r) {
-			
+			appendRow(r);
 		});
 	})
+
+
+	function appendRow(data) {
+		var nr;
+		if ($("#Account-" + data.accountNumber).length >0)
+			nr = $("#Account-" + data.accountNumber);
+		else
+			nr = $(".transaction_list tr.template").clone().removeClass("template").appendTo("tbody.transaction_list").attr("id", "Account-" + data.accountNumber);
+		parseResponseToFields(data, nr);
+	}
 
 
 
