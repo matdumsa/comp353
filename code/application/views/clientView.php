@@ -22,7 +22,7 @@
 				<td class="clientName"></td>
 				<td class="accountCount"></td>
 				<td class="netValue">$*</td>
-				<td class=""><span class="showOnRowHover ui-icon ui-icon-trash fl"></span><span class="showOnRowHover fakeLink fl grantAccount">[grant account access]</span></td>
+				<td class=""><span class="showOnRowHover ui-icon ui-icon-trash fl"></span><span class="showOnRowHover ui-icon ui-icon-key grantAccount"></span></td>
 			</tr>
 		</tbody>
 	</table>
