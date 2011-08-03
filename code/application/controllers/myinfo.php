@@ -13,7 +13,7 @@ class MyInfo extends CI_Controller {
 
 	}
         
-        
+                
        public function getInformation() {
 	$this->load->model("User");
 	$myinfo = $this->User->getMyInformation();

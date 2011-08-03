@@ -59,6 +59,21 @@ class Account extends CI_Controller {
 
 		$this->load->view('accountView', $data);
 	}
+	
+	
+		public function mine() {
+
+		$this->load->model("PlanModel");
+		$this->load->model("BranchModel");
+		$this->load->model("RateModel");
+
+		$data = array();
+		$data["plans"] = $this->PlanModel->select();
+		$data["branches"] = $this->BranchModel->select();
+		$data["rates"] = $this->RateModel->select();
+
+		$this->load->view('accountMine', $data);
+	}
 
 	public function associate($account_id, $client_id) {
 		$this->load->model("AccountModel");
@@ -77,6 +92,14 @@ class Account extends CI_Controller {
 		$this->load->model("AccountModel");
 		print json_encode($this->AccountModel->select("*"));
 	}
+	
+	public function getAccountsByUserId($user) {
+		hasRight("getAccountList", $this->session);			
+		$this->load->model("AccountModel");
+		print json_encode($this->AccountModel->getAccountsByUserId($user));
+	}
+	
+	
 
 }
 
