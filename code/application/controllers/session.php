@@ -22,7 +22,6 @@ class Session extends CI_Controller {
 	public function login() {
 
 		$this->session->set_userdata(array("loggedIn" => false));
-		$this->session->set_userdata(array("type" => "client"));
 
 		$this->load->model("Authentication");
 		

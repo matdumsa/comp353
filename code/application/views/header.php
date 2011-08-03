@@ -29,7 +29,7 @@
 				<img class="logo" src="img/planzilla.png">
 				<span class="ui-state-default ui-corner-all ui-hover fakeLink" id="logout">Login</span>
 				<ul>
-					<?=$this->load->view('menu')?>
+					<?=$this->load->view('menu', $this)?>
 				</ul>
 			</div>
 			<div class=push></div>

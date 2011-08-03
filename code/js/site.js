@@ -33,6 +33,7 @@ $(function() {	//To be run when DOM is constructed
 	$("#logout").click(function() {
 		getData("session/logout", {}, function(response)
 		{
+			location.reload(true);
 			$(".sessionData").text("");
 			$("#notLoggedIn").show();
 			$("#loggedIn").hide();
@@ -197,12 +198,14 @@ function showLogin(callback)
 		show:"puff",
 		hide:"puff",
 		modal: true,
+		closeOnEscape: false,
 		resizable:false, 
 		buttons: {
 			Ok: function() {
 				authenticateLogin(modalWindow.find(".username").val(), modalWindow.find(".password").val(), function() 
 				{
 					modalWindow.dialog('close');
+					location.reload(true);
 					$("#loggedInAs").css({"visibility" : "visible"});
 					callback();
 					getSessionInfo();
