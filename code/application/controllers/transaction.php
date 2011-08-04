@@ -7,7 +7,9 @@ class transaction extends CI_Controller {
 		
 	public function view() {
 
+		$this->load->model("AccountModel");
 		$data = array();
+		$data["accounts"] = $this->AccountModel->getAccountsByUserId($this->session->userdata("id"));
 		$this->load->view('transactionView', $data);
 	}
 	
