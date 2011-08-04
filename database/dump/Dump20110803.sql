@@ -553,7 +553,8 @@ CREATE TABLE IF NOT EXISTS `Interest_rate` (
   `typeOfAccount` enum('credit card','checking','saving','line of credit','loan') DEFAULT NULL,
   `typeOfService` enum('credit','non-credit') DEFAULT NULL,
   PRIMARY KEY (`interestRateId`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 DATA DIRECTORY='./dmc353_1/' INDEX DIRECTORY='./dmc353_1/' AUTO_INCREMENT=4 ;
+)
+
 
 --
 -- Contenu de la table `Interest_rate`

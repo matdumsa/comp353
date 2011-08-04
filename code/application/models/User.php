@@ -12,8 +12,12 @@ class User extends CI_Model {
 
 	public function getEmployeeInformation($employee_id) {
 
-            $schedule = array();
-            $pay_information = array();
+			$query = $this->db->get_where('Employee_Schedule',array("employeeId" => $employee_id));
+            $schedule = $query->result();	
+
+			$query = $this->db->get_where('Employee_Payroll',array("employeeId" => $employee_id));
+            $pay_information = $query->result();	
+
             $information = array("type"=>"employee", "id" => $employee_id, "schedule" => $schedule, "pay" => $pay_information);
                    
             return $information;

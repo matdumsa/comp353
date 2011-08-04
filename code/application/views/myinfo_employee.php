@@ -7,22 +7,25 @@ Id: <?=$id?>
 	<table>
 		<thead>
 			<tr>
-				<td>date</td>
-				<td>code</td>
-				<td>hours</td>
+				<td>Day</td>
+				<td>Code</td>
+				<td>Hours</td>
+				<td>Start</td>
 			</tr>
-		</thead>
-		
+		</thead>			
 		<tbody class="schedule_list alternateBg">
-			<tr class="template">
-				<td class="employeeTitle"></td>
-				<td class=""></td>
-				<td class="accountCount"></td>
-				<td class="netValue"></td>
+		<?php foreach($schedule as $schedule_row): ?>			
+			<tr>
+				<td><?=$schedule_row->employeeScheduleDay?></td>
+				<td><?=$schedule_row->employeeScheduleCode?></td>
+				<td><?=$schedule_row->employeeScheduleHours?></td>
+				<td><?=$schedule_row->employeeScheduleStartTime?></td>
 			</tr>
+		<?php endforeach; ?>
 		</tbody>
 	</table>
 
+	<hr>
     
     	<table>
 		<thead>
@@ -32,14 +35,15 @@ Id: <?=$id?>
 				<td>$$$</td>
 			</tr>
 		</thead>
-		
+
 		<tbody class="pay_list alternateBg">
-			<tr class="template">
-				<td class="employeeTitle"></td>
-				<td class=""></td>
-				<td class="accountCount"></td>
-				<td class="netValue"></td>
+		<?php foreach($pay as $payrow): ?>			
+			<tr>
+				<td><?=$payrow->employeePayId?></td>
+				<td><?=$payrow->employeePaymentDate?></td>
+				<td><?=$payrow->employeePaymentAmount?></td>
 			</tr>
+		<?php endforeach; ?>
 		</tbody>
 	</table>
 
