@@ -26,7 +26,6 @@
 
 		<div class=wrapper>
 			<div id="tabs">
-				<img class="logo" src="img/planzilla.png">
 				<span class="ui-state-default ui-corner-all ui-hover fakeLink" id="logout">Login</span>
 				<ul>
 					<?=$this->load->view('menu', $this)?>

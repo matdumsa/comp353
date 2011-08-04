@@ -4,6 +4,8 @@
 	<table>
 		<thead>
 			<tr>
+				<td>from</td>
+				<td>to</td>
 				<td>#</td>
 				<td>Type</td>
 				<td>Balance</td>
@@ -13,6 +15,8 @@
 		
 		<tbody class="account_list alternateBg">
 			<tr class="template">
+				<td><input type="radio" name="from"/></td>
+				<td><input type="radio" name="to"/></td>
 				<td class="accountNumber"></td>
 				<td class="accountType"></td>
 				<td class="accountBalance"></td>
@@ -21,6 +25,7 @@
 		</tbody>
 	</table>
 
+	<input type="text" id="amountToTransfer"/> <button id="transferMoney">Transfer</button>
 </div>
 
 
@@ -29,15 +34,18 @@
 <script>
 
 	
-    
-    //Get the list of Accounts
-	getData("Account/getMyAccounts/", {}, function(response) {
-		$.each(response, function(i,r) {
-		appendRow(r);
-		});
-	})
 
+	function refreshTable() {
+	    //Get the list of Accounts
+		getData("Account/getMyAccounts/", {}, function(response) {
+			$.each(response, function(i,r) {
+			appendRow(r);
+			});
+		})
+	
+	}    
 
+	refreshTable();
 	
 	function appendRow(data) {
 		var nr;
@@ -48,4 +56,21 @@
 		parseResponseToFields(data, nr);
 	}
 	
+	$("#transferMoney").click(function() {
+		var amount = $("#amountToTransfer").val();
+		var fromAccount = $(".account_list input[name='from']:checked").parents("tr").find(".accountNumber").text();
+		var toAccount = $(".account_list input[name='to']:checked").parents("tr").find(".accountNumber").text();
+		console.log(amount + " from " + fromAccount + " to " + toAccount);
+		
+		if (amount && fromAccount && toAccount && fromAccount!=toAccount) {
+			$.getJSON("/transaction/transferMoney/" + amount + "/" + fromAccount + "/" + toAccount, function() {
+				$("#amountToTransfer").val("");
+				var confirmation = $("<span>Success!!</div>").hide();
+				confirmation.insertAfter($("#transferMoney")).fadeIn("slow", function() {$(this).remove();})
+				refreshTable();
+			});
+		}
+		else
+			alert("You need to select an origin account, a different target account and type in an amount before doing a transfer");
+	})
 </script>

@@ -21,6 +21,13 @@ class transaction extends CI_Controller {
 		return $this->getList($this->session->userdata("id"));
 	}
 
+	public function transferMoney($amount, $from, $to) {
+		$this->load->model("AccountModel");
+		if ($this->AccountModel->transferMoney($amount, $from, $to)) {
+			print json_encode(array("status"=>"ok"));
+		};
+	
+	}
 		
 }
 

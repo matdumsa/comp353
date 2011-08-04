@@ -99,4 +99,26 @@ class AccountModel extends CI_Model {
         $this->db->delete('Account', array($this->id => $AccountNumber));
     }
 
+	function transferMoney($amount, $from, $to) {
+	
+		$from = $this->select($from);
+		$from = $from[0];
+		$to = $this->select($to);
+		$to = $to[0];
+		
+		$from->accountBalance 	= $from->accountBalance - $amount;
+		$to->accountBalance 	= $to->accountBalance + $amount;
+		
+		$transaction_from = array("transactionType" => "TRANSFER", "transactionAmount" => -1*$amount, "accountNumber" => $from->accountNumber, "transactionFees" => 0, "transactionDescription" => "Internet transfer, money leaving");
+		$transaction_to = array("transactionType" => "TRANSFER", "transactionAmount" => $amount, "accountNumber" => $to->accountNumber, "transactionFees" => 0, "transactionDescription" => "Internet transfer, money arriving");
+		
+		$this->db->insert('Transaction', $transaction_from);
+		$this->db->insert('Transaction', $transaction_to);
+
+        $this->db->update('Account', $from, array($this->id => $from->accountNumber ));
+        $this->db->update('Account', $to, array($this->id => $to->accountNumber ));
+        
+        return true;
+	
+	}
 }
