@@ -32,3 +32,11 @@ where e.employeeId not in (select branchManagedBy from Branch)
 
 
 ;
+
+drop view if EXISTS billableTransactionSoFarThisMonth;
+
+CREATE VIEW `billableTransactionSoFarThisMonth` AS 
+select `Transaction`.`accountNumber` AS `accountNumber`, count(*) AS `transactionCount`
+from `Transaction`
+where (((`Transaction`.`transactionType` = 'WITHDRAW') or ((`Transaction`.`transactionType` = 'TRANSFER') and (`Transaction`.`transactionAmount` < 0)))
+and (month(`Transaction`.`transactionDate`) = month(curdate())) and (year(`Transaction`.`transactionDate`) = year(curdate()))) group by `Transaction`.`accountNumber`;

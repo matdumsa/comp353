@@ -118,15 +118,6 @@ class Account extends CI_Controller {
 		print '{"status":"ok"}';
 		
 	}
-	
-	
-	
-	
-	
-
-	
-	
-	
 
 }
 

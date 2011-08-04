@@ -106,10 +106,11 @@ class AccountModel extends CI_Model {
 		$to = $this->select($to);
 		$to = $to[0];
 		
-		$from->accountBalance 	= $from->accountBalance - $amount;
+		$fee = $this->determineNextTransactionFees($from);
+		$from->accountBalance 	= $from->accountBalance - $amount - $fee;
 		$to->accountBalance 	= $to->accountBalance + $amount;
 		
-		$transaction_from = array("transactionType" => "TRANSFER", "transactionAmount" => -1*$amount, "accountNumber" => $from->accountNumber, "transactionFees" => 0, "transactionDescription" => "Internet transfer, money leaving");
+		$transaction_from = array("transactionType" => "TRANSFER", "transactionAmount" => -1*$amount, "accountNumber" => $from->accountNumber, "transactionFees" => $fee, "transactionDescription" => "Internet transfer, money leaving");
 		$transaction_to = array("transactionType" => "TRANSFER", "transactionAmount" => $amount, "accountNumber" => $to->accountNumber, "transactionFees" => 0, "transactionDescription" => "Internet transfer, money arriving");
 		
 		$this->db->insert('Transaction', $transaction_from);
@@ -139,8 +140,9 @@ class AccountModel extends CI_Model {
      $account = $account[0];
      if ($account->accountBalance >= (double) $Amount)
      {
-      $account->accountBalance 	= $account->accountBalance - $Amount;
-    $transaction = array("transactionType" => "WITHDRAW", "transactionAmount" => -1*$Amount, "accountNumber" => $account->accountNumber, "transactionFees" => 0, "transactionDescription" => "Internet Withdraw");
+     	$fee = $this->determineNextTransactionFees($account);
+	 	$account->accountBalance 	= $account->accountBalance - $Amount - $fee;
+    	$transaction = array("transactionType" => "WITHDRAW", "transactionAmount" => -1*$Amount, "accountNumber" => $account->accountNumber, "transactionFees" => $fee, "transactionDescription" => "Internet Withdraw");
     	$this->db->insert('Transaction', $transaction);
     	$this->db->update('Account', $account, array($this->id => $account->accountNumber ));
     	return true;
@@ -148,6 +150,35 @@ class AccountModel extends CI_Model {
      else
      return false;
     }
+
+
+
+	function determineNextTransactionFees($account) {
+	
+		// Let's obtain the plan
+		$query = $this->db->get_where("Charge_plans", array("branchPlanId" => $account->accountPlanId));
+		$plan = $query->result();
+		$plan = $plan[0];
+		
+		// Let's check how-many transactions where done this calendar month
+		$query = $this->db->get_where("billableTransactionSoFarThisMonth", array("accountNumber" => $account->accountNumber));
+		$howmany = $query->result();
+		if ($query->num_rows() > 0)
+			$howmany = $howmany[0];
+		else
+			$howmany = 0;
+			
+		$howmany = $howmany->transactionCount;
+		
+		if ($howmany > $plan->branchPlanLimit)
+		{
+			return $plan->branchChargeExcessLimit;
+		}
+		else
+			return 0;
+	
+	}
+
 
 
 }
