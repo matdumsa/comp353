@@ -4,12 +4,13 @@
 	<table>
 		<thead>
 			<tr>
-				<td></td>
-				<td>#</td>
-				<td>Client Name</td>
-				<td>#account</td>
-				<td>net $</td>
-				<td></td>
+				<td>#Account</td>
+				<td>#Transaction</td>
+				<td>Type</td>
+				<td>Amount</td>
+				<td>Date</td>
+				<td>Fees</td>
+				<td>Description</td>
 			</tr>
 		</thead>
 		
@@ -41,10 +42,11 @@
 
 	function appendRow(data) {
 		var nr;
-		if ($("#Account-" + data.accountNumber).length >0)
-			nr = $("#Account-" + data.accountNumber);
+		if ($("#Transaction-" + data.transactionId).length >0)
+			nr = $("#Transaction-" + data.transactionId);
 		else
-			nr = $(".transaction_list tr.template").clone().removeClass("template").appendTo("tbody.transaction_list").attr("id", "Account-" + data.accountNumber);
+			nr = $(".transaction_list tr.template").clone().removeClass("template").appendTo("tbody.transaction_list").attr("id", "Transaction-" + data.transactionId);
+			
 		parseResponseToFields(data, nr);
 	}
 

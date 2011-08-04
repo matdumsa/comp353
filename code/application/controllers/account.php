@@ -98,6 +98,10 @@ class Account extends CI_Controller {
 		$this->load->model("AccountModel");
 		print json_encode($this->AccountModel->getAccountsByUserId($user));
 	}
+
+	public function getMyAccounts() {
+		return $this->getAccountsByUserId($this->session->userdata("id"));
+	}
 	
 	
 

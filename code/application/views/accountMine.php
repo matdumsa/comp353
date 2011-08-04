@@ -31,7 +31,7 @@
 	
     
     //Get the list of Accounts
-	getData("Account/getAccountsByUserId/5", {}, function(response) {
+	getData("Account/getMyAccounts/", {}, function(response) {
 		$.each(response, function(i,r) {
 		appendRow(r);
 		});

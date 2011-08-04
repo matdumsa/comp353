@@ -12,10 +12,15 @@ class transaction extends CI_Controller {
 	}
 	
 	public function getList($user) {
-		hasRight("getClientList", $this->session);			
+		//hasRight("getClientList", $this->session);			
 		$this->load->model("AccountModel");
 		print json_encode($this->AccountModel->getUserTransaction($user));
 	}
+	
+	public function getTransaction() {
+		return $this->getList($this->session->userdata("id"));
+	}
+
 		
 }
 
