@@ -121,4 +121,33 @@ class AccountModel extends CI_Model {
         return true;
 	
 	}
+	
+	  function deposit($AccountNumber,$Amount)
+    {
+    	$account = $this->select($AccountNumber);
+    	$account = $account[0];
+    	$account->accountBalance = $account->accountBalance + $Amount;
+    	$transaction = array("transactionType" => "DEPOSIT", "transactionAmount" => $Amount, "accountNumber" => $account->accountNumber, "transactionFees" => 0, "transactionDescription" => "Internet Deposit");
+    	$this->db->insert('Transaction', $transaction);
+    	$this->db->update('Account', $account, array($this->id => $account->accountNumber ));
+
+    }
+    
+      function withdraw($AccountNumber,$Amount)
+    {
+     $account = $this->select($AccountNumber);
+     $account = $account[0];
+     if ($account->accountBalance >= (double) $Amount)
+     {
+      $account->accountBalance 	= $account->accountBalance - $Amount;
+    $transaction = array("transactionType" => "WITHDRAW", "transactionAmount" => -1*$Amount, "accountNumber" => $account->accountNumber, "transactionFees" => 0, "transactionDescription" => "Internet Withdraw");
+    	$this->db->insert('Transaction', $transaction);
+    	$this->db->update('Account', $account, array($this->id => $account->accountNumber ));
+    	return true;
+     }
+     else
+     return false;
+    }
+
+
 }

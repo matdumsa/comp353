@@ -36,6 +36,7 @@
 				<td><button id="deposit">Deposit</button></td>
 				<td><button id="withdraw">Withdraw</button></td>
 		</tr>
+</table>
 </div>
 
 <div id="depositForm" class="hidden" title="Deposit">
@@ -95,7 +96,7 @@
 		parseResponseToFields(data, nr);
 	}
 	
-	function depositForm();
+	function depositForm()
 {
 
 		
@@ -122,7 +123,7 @@
 		});
 	}
 	
-		function withdrawForm();
+		function withdrawForm()
 {
 
 		
@@ -161,6 +162,9 @@
 		
 		$.post(url, $("#" + data + "Form").find("input, select").serialize(), function(response)
 		{
+				if (response.status == "NotOk")
+				alert("Transaction failed , you don't have sufficient fund");
+				else
 				refreshData();
 		}, "json");
 

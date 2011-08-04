@@ -104,14 +104,17 @@ class Account extends CI_Controller {
 	}
 	
 	public function deposit() {
-		$this->load->model("AccountModel")
-		$this->AccountModel->deposit($this->input->post("account"),$this->input->post("ammount") );			
+		$this->load->model("AccountModel");
+		$this->AccountModel->deposit($this->input->post("account"),$this->input->post("amount") );			
 		print '{"status":"ok"}';
 	}
 	
 	public function withdraw() {
-		$this->load->model("AccountModel")
-		$this->AccountModel->withdraw($this->input->post("account"),$this->input->post("amount") );			
+		$this->load->model("AccountModel");
+		$response = $this->AccountModel->withdraw($this->input->post("account"),$this->input->post("amount"));		
+		if ($response == false)	
+		print '{"status":"Notok"}';
+		else
 		print '{"status":"ok"}';
 		
 	}
