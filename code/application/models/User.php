@@ -24,8 +24,16 @@ class User extends CI_Model {
 	}
 
 	public function getClientInformation($client_id) {
-		$information = array("type"=>"client", "id" => $client_id);
+            
+                        $query = $this->db->get_where('Client_Overview',array("clientId" => $client_id));
+                $info = $query->result();
+                
+                
+		$information = array("type"=>"client", "id" => $client_id, "info" => $info);
+                
 		return $information;
+                
+                
 	}
 	
 	public function getMyInformation() {
