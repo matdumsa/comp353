@@ -162,7 +162,7 @@
 		
 		$.post(url, $("#" + data + "Form").find("input, select").serialize(), function(response)
 		{
-				if (response.status == "NotOk")
+				if (response.status == "Notok")
 				alert("Transaction failed , you don't have sufficient fund");
 				else
 				refreshData();
