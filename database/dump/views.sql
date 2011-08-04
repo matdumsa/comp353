@@ -40,3 +40,34 @@ select `Transaction`.`accountNumber` AS `accountNumber`, count(*) AS `transactio
 from `Transaction`
 where (((`Transaction`.`transactionType` = 'WITHDRAW') or ((`Transaction`.`transactionType` = 'TRANSFER') and (`Transaction`.`transactionAmount` < 0)))
 and (month(`Transaction`.`transactionDate`) = month(curdate())) and (year(`Transaction`.`transactionDate`) = year(curdate()))) group by `Transaction`.`accountNumber`;
+
+drop view if EXISTS profitability_report;
+
+create view profitability_report
+as
+select branchId, rm.name, 
+(
+select sum(transactionFees)
+from Account, Transaction
+where Account.accountBranchId = m.branchId and Transaction.accountNumber = Account.accountNumber
+and year(transactionDate) = rm.year and month(transactionDate) = rm.month
+) as FeesReceived, 
+
+(
+select sum(-1*transactionAmount)
+from Account, Transaction
+where Account.accountBranchId = m.branchId and Transaction.accountNumber = Account.accountNumber and transactionType = "INTEREST"
+and year(transactionDate) = rm.year and month(transactionDate) = rm.month
+
+) as InterestReceived, 
+
+
+(
+select sum(employeePaymentAmount)
+from Employee_Payroll, Employee
+where Employee.employeeId = Employee_Payroll.employeeId and Employee.employeeBranchId = m.branchId
+and year(employeePaymentDate) = rm.year and month(employeePaymentDate) = rm.month
+
+) as PayGivenToEmployees
+
+ from Branch m, Reports_Month rm
