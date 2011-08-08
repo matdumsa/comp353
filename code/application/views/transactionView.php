@@ -1,4 +1,14 @@
  
+ <div>
+<table>
+<caption>Actions</caption>
+		<tr>
+				<td><button id="deposit">Deposit</button></td>
+				<td><button id="withdraw">Withdraw</button></td>
+		</tr>
+</table>
+</div>
+ 
 <div>
 	<table>
 		<thead>
@@ -27,17 +37,6 @@
 	</table>
 </div>
 
-</div>
-
-<div>
-<table>
-<caption>Actions</caption>
-		<tr>
-				<td><button id="deposit">Deposit</button></td>
-				<td><button id="withdraw">Withdraw</button></td>
-		</tr>
-</table>
-</div>
 
 <div id="depositForm" class="hidden" title="Deposit">
 	<?=$this->load->view("form/actions", $this);?>
