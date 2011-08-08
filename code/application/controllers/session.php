@@ -54,7 +54,7 @@ class Session extends CI_Controller {
 	
 	public function info() {
 		hasRight("view_client", $this->session);
-		print json_encode(array("name"=>"God", "username"=>"god", "role"=>"3"));
+		print json_encode(array("name"=>$this->session->userdata("type"), "username"=>$this->session->userdata("id"), "role"=>"3"));
 	}
 }
 
