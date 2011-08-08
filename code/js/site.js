@@ -106,7 +106,7 @@ function getData(url, params, callback, options)
 	options.type = options.type || "get";
 	var startTime = new Date();
 	if (env == "PROD" && url.indexOf("cgiwrap") < 0)
-		url = "https://clipper.encs.concordia.ca/cgi-bin/cgiwrap/~dmc353_1/index.php/" + url;
+		url = "https://clipper.encs.concordia.ca/cgi-bin/cgiwrap/~dmc353_1/index.php/" + url.toLowerCase();
 
 	function updateTimer() {
 		var stopTime = new Date();
