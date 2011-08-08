@@ -41,9 +41,9 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost:8889';
-$db['default']['username'] = 'root';
-$db['default']['password'] = 'root';
+$db['default']['hostname'] = 'clipper.encs.concordia.ca:3306';
+$db['default']['username'] = 'dmc353_1';
+$db['default']['password'] = 'L0ckL0ck';
 $db['default']['database'] = 'dmc353_1';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
