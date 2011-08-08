@@ -107,6 +107,10 @@ class AccountModel extends CI_Model {
 		$to = $to[0];
 		
 		$fee = $this->determineNextTransactionFees($from);
+		
+		if ($this->hasAvailableFunds($from, $amount, $fee) == false)
+			return false;
+			
 		$from->accountBalance 	= $from->accountBalance - $amount - $fee;
 		$to->accountBalance 	= $to->accountBalance + $amount;
 		
@@ -123,6 +127,13 @@ class AccountModel extends CI_Model {
 	
 	}
 	
+	function hasAvailableFunds($account, $amount, $fees) {
+		if ($account->accountType == "checking" || $account->accountType == "saving" || $account->accountType == "USD")	
+			return ($account->accountBalance >= ($amount+$fees));
+		else
+			return (($account->accountBalance - $amount - $fees) >= ($account->accountCreditLimit*-1.0));
+	}
+
 	  function deposit($AccountNumber,$Amount)
     {
     	$account = $this->select($AccountNumber);

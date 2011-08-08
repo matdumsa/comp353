@@ -28,6 +28,9 @@ class transaction extends CI_Controller {
 		if ($this->AccountModel->transferMoney($amount, $from, $to)) {
 			print json_encode(array("status"=>"ok"));
 		};
+		else {
+			print json_encode(array("status"=>"not-ok", "reason":"insufficient funds"));		
+		}
 	
 	}
 		

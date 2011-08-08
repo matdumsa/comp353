@@ -63,11 +63,16 @@
 		console.log(amount + " from " + fromAccount + " to " + toAccount);
 		
 		if (amount && fromAccount && toAccount && fromAccount!=toAccount) {
-			$.getJSON("https://clipper.encs.concordia.ca/cgi-bin/cgiwrap/~dmc353_1/index.php/transaction/transfermoney/" + amount + "/" + fromAccount + "/" + toAccount, function() {
-				$("#amountToTransfer").val("");
-				var confirmation = $("<span>Success!!</div>").hide();
-				confirmation.insertAfter($("#transferMoney")).fadeIn("slow", function() {$(this).remove();})
-				refreshTable();
+			$.getJSON("https://clipper.encs.concordia.ca/cgi-bin/cgiwrap/~dmc353_1/index.php/transaction/transfermoney/" + amount + "/" + fromAccount + "/" + toAccount, function(response) {
+				if (response.status == "ok") 
+				{
+					$("#amountToTransfer").val("");
+					var confirmation = $("<span>Success!!</div>").hide();
+					confirmation.insertAfter($("#transferMoney")).fadeIn("slow", function() {$(this).remove();})
+					refreshTable();
+				}
+				else
+					alert(response.reason);
 			});
 		}
 		else
