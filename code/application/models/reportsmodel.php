@@ -15,7 +15,7 @@ $statement = <<<EOT
 		sum(ifnull(FeesReceived,0)) as FeesReceived,
 		sum(ifnull(InterestReceived,0)) as InterestReceived,
 		sum(ifnull(PayGivenToEmployees,0)) as PayGivenToEmployees,
-		sum(ifnull(FeesReceived,0)+ifnull(InterestReceived,0)+ifnull(PayGivenToEmployees,0))
+		sum(ifnull(FeesReceived,0)+ifnull(InterestReceived,0)-ifnull(PayGivenToEmployees,0))
 		as Profit
 		from profitability_report r
 		join Branch b on b.branchId = r.branchId

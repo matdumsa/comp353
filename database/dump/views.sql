@@ -44,7 +44,7 @@ create view profitability_report
 as
 select branchId, rm.name, 
 (
-select sum(transactionFees)
+select sum(transactionFees)+sum(case when transactionType='CHARGE' then -1.0*transactionAmount else 0.0 end)
 from Account, Transaction
 where Account.accountBranchId = m.branchId and Transaction.accountNumber = Account.accountNumber
 and year(transactionDate) = rm.year and month(transactionDate) = rm.month
