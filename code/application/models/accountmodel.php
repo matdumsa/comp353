@@ -149,9 +149,9 @@ class AccountModel extends CI_Model {
     {
      $account = $this->select($AccountNumber);
      $account = $account[0];
-     if ($account->accountBalance >= (double) $Amount)
+   	$fee = $this->determineNextTransactionFees($account);
+     if ($account->accountBalance >= ((double) $Amount+$fee))
      {
-     	$fee = $this->determineNextTransactionFees($account);
 	 	$account->accountBalance 	= $account->accountBalance - $Amount - $fee;
     	$transaction = array("transactionType" => "WITHDRAW", "transactionAmount" => -1*$Amount, "accountNumber" => $account->accountNumber, "transactionFees" => $fee, "transactionDescription" => "Internet Withdraw");
     	$this->db->insert('Transaction', $transaction);
@@ -159,7 +159,7 @@ class AccountModel extends CI_Model {
     	return true;
      }
      else
-     return false;
+	     return false;
     }
 
 
