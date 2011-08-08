@@ -21,7 +21,7 @@ switch ($type) {
 		<li><a href="client/view">Clients</a></li>	
 		<li><a href="account/view">Account</a></li>	
 		<li><a href="employee/view">Employees</a></li>	
-		<li><a href="reports">Employees</a></li>	
+		<li><a href="reports">Reports</a></li>	
 		<li><a href="myinfo">My information</a></li>	
 	<?php
         break;
