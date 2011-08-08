@@ -1,0 +1,27 @@
+WARNING: Page 4 is missing from the soft copy as we only produced a hard-copy of it
+WARNING(2): the app is configured to run only on clipper since there was a lot of weird security issues (cgiwrap) to circumvent.
+
+This repository is publicly available on https://github.com/matdumsa/comp353
+
+Directory structure
+
+/code	web-app code
+	/Application	web-app code
+		/Controller	our controller for the web app
+		/Model		our models for the web app
+		/Views		our views for the web app
+					the rest is mainly code igniter's internal 
+	/js		js for the web-app
+	/css	css for the web-app
+
+/database	db code
+	/monthlybookkeeping.sql	code to pay employee, charge interest and plan prices. This should be run by a cronjob described in documentation
+	/dump	various db dumps
+		/views.sql	all the views required for the app to work
+		/final.sql 	final dump of the data for the app to work
+
+/docs	documentation for the app including installation instruction, E/R diagram, etc..
+
+
+
+
