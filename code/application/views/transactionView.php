@@ -163,6 +163,10 @@
 		{
 				if (response.status == "Notok")
 				alert("Transaction failed , you don't have sufficient fund");
+				else if (response.status == "NoAmount")
+				alert("Amount is Empty");
+				else if (response.status == "Negativeamount")
+				alert("Please enter a positive amount");
 				else
 				refreshData();
 		}, "json");

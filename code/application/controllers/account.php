@@ -105,17 +105,50 @@ class Account extends CI_Controller {
 	
 	public function deposit() {
 		$this->load->model("AccountModel");
-		$this->AccountModel->deposit($this->input->post("account"),$this->input->post("amount") );			
-		print '{"status":"ok"}';
+		$amount = $this->input->post("amount");
+		$account = $this->input->post("account");
+		if ($amount != null)
+		{
+			if ($amount > 0)
+			{
+				$this->AccountModel->deposit($account,$amount);			
+				print '{"status":"ok"}';
+			}
+			else
+			{
+				print '{"status":"Negativeamount"}';
+			}
+		}
+		else
+		{
+			print '{"status":"NoAmount"}';
+		}
 	}
 	
 	public function withdraw() {
 		$this->load->model("AccountModel");
-		$response = $this->AccountModel->withdraw($this->input->post("account"),$this->input->post("amount"));		
-		if ($response == false)	
-		print '{"status":"Notok"}';
+		$amount = $this->input->post("amount");
+		$account = $this->input->post("account");
+
+		if ($amount != null)
+		{
+			if ($amount > 0)
+			{
+				$response = $this->AccountModel->withdraw($account,$amount);
+				if ($response == false)	
+				print '{"status":"Notok"}';	
+				else	
+				print '{"status":"ok"}';
+			}
+			else
+			{
+				print '{"status":"Negativeamount"}';
+			}
+		}
 		else
-		print '{"status":"ok"}';
+		{
+			print '{"status":"NoAmount"}';
+		}
 		
 	}
 
