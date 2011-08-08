@@ -9,7 +9,7 @@ class ReportsModel extends CI_Model {
     }
     
 	function run() {
-		$query = $this->db->query(<<<EOQ
+$statement = <<<'EOT'
 		select ifnull(branchLocation,'TOTAL') as location
 		, ifnull(name,'TOTAL') as month, 
 		sum(ifnull(FeesReceived,0)) as FeesReceived,
@@ -20,7 +20,8 @@ class ReportsModel extends CI_Model {
 		from profitability_report r
 		join Branch b on b.branchId = r.branchId
 		group by branchLocation, name with rollup;
-EOQ		);	
-			return $query->result();
+EOT;
+		$query = $this->db->query($statement);	
+		return $query->result();
 	}
 }
