@@ -29,7 +29,7 @@ class transaction extends CI_Controller {
 			print json_encode(array("status"=>"ok"));
 		};
 		else {
-			print json_encode(array("status"=>"not-ok", "reason":"insufficient funds"));		
+			print json_encode(array("status"=>"not-ok", "reason"=>"insufficient funds"));		
 		}
 	
 	}
