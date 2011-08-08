@@ -11,6 +11,8 @@ $(function() {	//To be run when DOM is constructed
 		{
 			"beforeSend":function(jqXHR, settings) {
 				$("#tabs").data("last-url-requested", settings.url);
+				if (env == "PROD" && settings.url.indexOf("cgiwrap") < 0)
+					settings.url = "https://clipper.encs.concordia.ca/cgi-bin/cgiwrap/~dmc353_1/index.php/" + settings.url;
 			}
 			, "error":function(XMLHttpRequest, textStatus, errorThrown)
 			{
