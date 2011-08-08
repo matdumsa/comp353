@@ -9,7 +9,7 @@ class ReportsModel extends CI_Model {
     }
     
 	function run() {
-$statement = <<<'EOT'
+$statement = <<<EOT
 		select ifnull(branchLocation,'TOTAL') as location
 		, ifnull(name,'TOTAL') as month, 
 		sum(ifnull(FeesReceived,0)) as FeesReceived,
