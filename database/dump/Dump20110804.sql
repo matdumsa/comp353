@@ -983,39 +983,3 @@ INSERT INTO `Transaction` VALUES(374, 'TRANSFER', -100000.00, '2011-08-04 01:10:
 INSERT INTO `Transaction` VALUES(375, 'TRANSFER', 100000.00, '2011-08-04 01:10:14', 23, 0.00, 'Internet transfer, money arriving');
 INSERT INTO `Transaction` VALUES(376, 'TRANSFER', -99999999.00, '2011-08-04 01:10:18', 5, 0.00, 'Internet transfer, money leaving');
 INSERT INTO `Transaction` VALUES(377, 'TRANSFER', 99999999.00, '2011-08-04 01:10:18', 23, 0.00, 'Internet transfer, money arriving');
-
--- --------------------------------------------------------
-
---
--- Structure de la vue `billableTransactionSoFarThisMonth`
---
-DROP TABLE IF EXISTS `billableTransactionSoFarThisMonth`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `billableTransactionSoFarThisMonth` AS select `Transaction`.`accountNumber` AS `accountNumber`,count(0) AS `transactionCount` from `Transaction` where (((`Transaction`.`transactionType` = 'WITHDRAW') or ((`Transaction`.`transactionType` = 'TRANSFER') and (`Transaction`.`transactionAmount` < 0))) and (month(`Transaction`.`transactionDate`) = month(curdate())) and (year(`Transaction`.`transactionDate`) = year(curdate()))) group by `Transaction`.`accountNumber`;
-
--- --------------------------------------------------------
-
---
--- Structure de la vue `Client_Overview`
---
-DROP TABLE IF EXISTS `Client_Overview`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `Client_Overview` AS select `Client`.`clientId` AS `clientId`,`Client`.`clientAddress` AS `clientAddress`,`Client`.`clientDateOfBirth` AS `clientDateOfBirth`,`Client`.`clientJoiningDate` AS `clientJoiningDate`,`Client`.`clientName` AS `clientName`,`Client`.`clientCategory` AS `clientCategory`,(select count(0) from `Clients_own_account` `cos` where (`cos`.`clientId` = `Client`.`clientId`)) AS `accountCount`,(select sum(`acc`.`accountBalance`) from (`Account` `acc` join `Clients_own_account` `cos` on((`acc`.`accountNumber` = `cos`.`accountId`))) where (`cos`.`clientId` = `Client`.`clientId`)) AS `netValue` from `Client`;
-
--- --------------------------------------------------------
-
---
--- Structure de la vue `Password`
---
-DROP TABLE IF EXISTS `Password`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `Password` AS select `ClientCard`.`clientCardNumber` AS `Username`,`ClientCard`.`clientPassword` AS `Password`,'client' AS `Type`,`ClientCard`.`clientId` AS `Id` from `ClientCard` union all select `el`.`employeeId` AS `employeeId`,`el`.`employeeLoginPassword` AS `employeeLoginPassword`,'manager' AS `Type`,`el`.`employeeId` AS `Id` from (`Employee_login` `el` join `Employee` `e` on((`e`.`employeeId` = `el`.`employeeId`))) where `e`.`employeeId` in (select `Branch`.`branchManagedBy` from `Branch`) union all select `el`.`employeeId` AS `employeeId`,`el`.`employeeLoginPassword` AS `employeeLoginPassword`,'clerk' AS `Type`,`el`.`employeeId` AS `Id` from (`Employee_login` `el` join `Employee` `e` on((`e`.`employeeId` = `el`.`employeeId`))) where (not(`e`.`employeeId` in (select `Branch`.`branchManagedBy` from `Branch`)));
-
--- --------------------------------------------------------
-
---
--- Structure de la vue `profitability_report`
---
-DROP TABLE IF EXISTS `profitability_report`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `profitability_report` AS select `m`.`branchId` AS `branchId`,`rm`.`name` AS `name`,(select sum(`Transaction`.`transactionFees`) from (`Account` join `Transaction`) where ((`Account`.`accountBranchId` = `m`.`branchId`) and (`Transaction`.`accountNumber` = `Account`.`accountNumber`) and (year(`Transaction`.`transactionDate`) = `rm`.`year`) and (month(`Transaction`.`transactionDate`) = `rm`.`month`))) AS `FeesReceived`,(select sum((-(1) * `Transaction`.`transactionAmount`)) from (`Account` join `Transaction`) where ((`Account`.`accountBranchId` = `m`.`branchId`) and (`Transaction`.`accountNumber` = `Account`.`accountNumber`) and (`Transaction`.`transactionType` = 'INTEREST') and (year(`Transaction`.`transactionDate`) = `rm`.`year`) and (month(`Transaction`.`transactionDate`) = `rm`.`month`))) AS `InterestReceived`,(select sum(`Employee_Payroll`.`employeePaymentAmount`) from (`Employee_Payroll` join `Employee`) where ((`Employee`.`employeeId` = `Employee_Payroll`.`employeeId`) and (`Employee`.`employeeBranchId` = `m`.`branchId`) and (year(`Employee_Payroll`.`employeePaymentDate`) = `rm`.`year`) and (month(`Employee_Payroll`.`employeePaymentDate`) = `rm`.`month`))) AS `PayGivenToEmployees` from (`Branch` `m` join `Reports_Month` `rm`);

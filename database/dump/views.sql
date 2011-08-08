@@ -1,6 +1,6 @@
 use dmc353_1;
 
-drop view IF EXISTS Client_Overview;
+drop view Client_Overview;
 
 CREATE VIEW `dmc353_1`.`Client_Overview` AS
 select `dmc353_1`.`Client`.`clientId` AS `clientId`
@@ -13,11 +13,11 @@ select `dmc353_1`.`Client`.`clientId` AS `clientId`
 ,(select sum(`acc`.`accountBalance`) from (`dmc353_1`.`Account` `acc` join `dmc353_1`.`Clients_own_account` `cos` on((`acc`.`accountNumber` = `cos`.`accountId`))) where (`cos`.`clientId` = `dmc353_1`.`Client`.`clientId`)) AS `netValue`
 from `dmc353_1`.`Client`;
 
-drop view IF EXISTS Password;
+drop view Password;
 
 create view Password as
 
-select cast(clientCardNumber as varchar(25)) as Username, clientPassword as Password, 'client' as Type, clientId as Id
+select concat(clientCardNumber,'') 'Username', clientPassword as Password, 'client' as Type, clientId as Id
 from ClientCard
 union all
 select el.employeeId, employeeLoginPassword, 'manager' as Type, el.employeeId as Id
@@ -28,12 +28,9 @@ union all
 select el.employeeId, employeeLoginPassword, 'clerk' as Type, el.employeeId as Id
 from Employee_login el
 join Employee e on e.employeeId = el.employeeId
-where e.employeeId not in (select branchManagedBy from Branch)
+where e.employeeId not in (select branchManagedBy from Branch);
 
-
-;
-
-drop view if EXISTS billableTransactionSoFarThisMonth;
+drop view billableTransactionSoFarThisMonth;
 
 CREATE VIEW `billableTransactionSoFarThisMonth` AS 
 select `Transaction`.`accountNumber` AS `accountNumber`, count(*) AS `transactionCount`
@@ -41,7 +38,7 @@ from `Transaction`
 where (((`Transaction`.`transactionType` = 'WITHDRAW') or ((`Transaction`.`transactionType` = 'TRANSFER') and (`Transaction`.`transactionAmount` < 0)))
 and (month(`Transaction`.`transactionDate`) = month(curdate())) and (year(`Transaction`.`transactionDate`) = year(curdate()))) group by `Transaction`.`accountNumber`;
 
-drop view if EXISTS profitability_report;
+drop view profitability_report;
 
 create view profitability_report
 as
