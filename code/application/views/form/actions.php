@@ -12,7 +12,7 @@
 			<td>
 				<select name="account">
 				<?php foreach($accounts as $account) : ?>
-					<option value="<?=$account->accountNumber?>"><?=$account->accountType?></option> 
+					<option value="<?=$account->accountNumber?>"><?=$account->accountType?> #<?=$account->accountNumber?></option> 
 				<?php endforeach; ?>
 				</select>
 			</td>
