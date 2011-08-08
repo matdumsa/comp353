@@ -116,7 +116,7 @@
 	}
 	
 	function performDelete(data) {
-		$.getJSON("/employee/remove/" + data.employeeId, {}, function(response) {
+		$.getJSON("https://clipper.encs.concordia.ca/cgi-bin/cgiwrap/~dmc353_1/index.php/employee/remove/" + data.employeeId, {}, function(response) {
 			if (response.status == "ok")
 				$("#employee-" + data.employeeId).remove();
 		});
@@ -124,9 +124,9 @@
 	
 	function submitForm(data) {
 		if (data)
-			var url = "/employee/modify/" + data.employeeId;
+			var url = "https://clipper.encs.concordia.ca/cgi-bin/cgiwrap/~dmc353_1/index.php/employee/modify/" + data.employeeId;
 		else
-			var url = "/employee/add/";
+			var url = "https://clipper.encs.concordia.ca/cgi-bin/cgiwrap/~dmc353_1/index.php/employee/add/";
 
 		$.post(url, $("#newEmployeeForm").find("input, select").serialize(), function(response)
 		{

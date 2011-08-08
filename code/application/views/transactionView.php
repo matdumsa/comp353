@@ -153,11 +153,11 @@
 	function submitForm(data) {
 		if (data == "withdraw")
 		{
-			var url = "/account/withdraw/" ;
+			var url = "https://clipper.encs.concordia.ca/cgi-bin/cgiwrap/~dmc353_1/index.php/account/withdraw/" ;
 		}
 		else if (data == "deposit") 
 		{
-			var url = "/account/deposit/";
+			var url = "https://clipper.encs.concordia.ca/cgi-bin/cgiwrap/~dmc353_1/index.php/account/deposit/";
 		}
 		
 		$.post(url, $("#" + data + "Form").find("input, select").serialize(), function(response)

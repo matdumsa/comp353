@@ -63,7 +63,7 @@
 		console.log(amount + " from " + fromAccount + " to " + toAccount);
 		
 		if (amount && fromAccount && toAccount && fromAccount!=toAccount) {
-			$.getJSON("/transaction/transferMoney/" + amount + "/" + fromAccount + "/" + toAccount, function() {
+			$.getJSON("https://clipper.encs.concordia.ca/cgi-bin/cgiwrap/~dmc353_1/index.php/transaction/transfermoney/" + amount + "/" + fromAccount + "/" + toAccount, function() {
 				$("#amountToTransfer").val("");
 				var confirmation = $("<span>Success!!</div>").hide();
 				confirmation.insertAfter($("#transferMoney")).fadeIn("slow", function() {$(this).remove();})

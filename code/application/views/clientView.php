@@ -108,7 +108,7 @@
 	}
 	
 	function performDelete(data) {
-		$.getJSON("/client/remove/" + data.clientId, {}, function(response) {
+		$.getJSON("https://clipper.encs.concordia.ca/cgi-bin/cgiwrap/~dmc353_1/index.php/client/remove/" + data.clientId, {}, function(response) {
 			if (response.status == "ok")
 				$("#client-" + data.clientId).remove();
 		});
@@ -116,9 +116,9 @@
 	
 	function submitForm(data) {
 		if (data)
-			var url = "/client/modify/" + data.clientId;
+			var url = "https://clipper.encs.concordia.ca/cgi-bin/cgiwrap/~dmc353_1/index.php/client/modify/" + data.clientId;
 		else
-			var url = "/client/add/";
+			var url = "https://clipper.encs.concordia.ca/cgi-bin/cgiwrap/~dmc353_1/index.php/client/add/";
 
 		$.post(url, $("#newClientForm input").serialize(), function(response)
 		{
@@ -147,8 +147,8 @@
 	function associateWithAccount(client, account) {
 		if (!account)
 			return associateWithAccount(client, prompt("Please enter account id to associate this user with"));
-		$.getJSON("/account/associate/" + account + "/" + client.clientId, function()  {
-			$.getJSON("/client/getInfo/" + client.clientId, function(response) {
+		$.getJSON("https://clipper.encs.concordia.ca/cgi-bin/cgiwrap/~dmc353_1/index.php/account/associate/" + account + "/" + client.clientId, function()  {
+			$.getJSON("https://clipper.encs.concordia.ca/cgi-bin/cgiwrap/~dmc353_1/index.php/client/getinfo/" + client.clientId, function(response) {
 				appendRow(response[0]);
 				alert(client.clientName + " can now access account #" + account);
 			});

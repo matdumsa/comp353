@@ -110,7 +110,7 @@
 	}
 	
 	function performDelete(data) {
-		$.getJSON("/account/remove/" + data.accountNumber, {}, function(response) {
+		$.getJSON("https://clipper.encs.concordia.ca/cgi-bin/cgiwrap/~dmc353_1/index.php/account/remove/" + data.accountNumber, {}, function(response) {
 			if (response.status == "ok")
 				$("#Account-" + data.accountNumber).remove();
 		});
@@ -118,9 +118,9 @@
 	
 	function submitForm(data) {
 		if (data)
-			var url = "/account/modify/" + data.accountNumber;
+			var url = "https://clipper.encs.concordia.ca/cgi-bin/cgiwrap/~dmc353_1/index.php/account/modify/" + data.accountNumber;
 		else
-			var url = "/account/add/";
+			var url = "https://clipper.encs.concordia.ca/cgi-bin/cgiwrap/~dmc353_1/index.php/account/add/";
 
 		$.post(url, $("#newAccountForm").find("input, select").serialize(), function(response)
 		{
