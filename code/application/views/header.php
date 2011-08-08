@@ -36,7 +36,7 @@
 
 		<div class=footer>
 			<div style="float:right">Last query ran in <span id="querySpeed">0</span> sec.</div>
-			[PlaceholderBank], version %v
+			[PlaceholderBank], version 1.0
         	<span id="loggedIn" style="display:none">Logged in as <span class="name sessionData"></span> (<span class="username sessionData"></span>)</span>
         	<span id="notLoggedIn">You are not logged in for the moment</span>
 		</div>
