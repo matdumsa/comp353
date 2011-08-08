@@ -33,7 +33,7 @@ class AccountModel extends CI_Model {
     
      function getAccountsByUserId($userId)
     {
-    $sql = 'SELECT * FROM Account join Clients_own_account coa on coa.accountId = Account.accountNumber where coa.clientId =' . $userId;
+    $sql = 'SELECT * FROM account_detail join Clients_own_account coa on coa.accountId = account_detail.accountNumber where coa.clientId =' . $userId;
     $query = $this->db->query($sql);
     // Fetch the result array from the result object and return it
     return $query->result();	

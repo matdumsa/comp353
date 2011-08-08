@@ -11,6 +11,8 @@
 				<td>Balance</td>
 				<td>CreatedOn</td>
 				<td>Credit Limit</td>
+				<td>Transaction so far</td>
+				<td>Transaction Limit</td>
 			</tr>
 		</thead>
 		
@@ -23,6 +25,8 @@
 				<td class="accountBalance"></td>
 				<td class="accountCreationDate"></td>
 				<td class="accountCreditLimit"></td>
+				<td class="transactionCount"></td>
+				<td class="branchPlanLimit"></td>
 			</tr>
 		</tbody>
 	</table>
