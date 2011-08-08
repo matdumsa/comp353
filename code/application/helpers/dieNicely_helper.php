@@ -5,5 +5,4 @@ function dieNicely($message, $reason = null) {
 	exit();
 }
 
-
 ?>

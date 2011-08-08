@@ -1,6 +1,5 @@
 <?php 
 
-
 function hasRight($right, $session) {
 	if (! ($session->userdata('loggedIn') == true))
 		dieNicely("NOT LOGGED", "notLoggedIn");
