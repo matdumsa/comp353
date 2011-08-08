@@ -10,6 +10,7 @@
 				<td>Type</td>
 				<td>Balance</td>
 				<td>CreatedOn</td>
+				<td>Credit Limit</td>
 			</tr>
 		</thead>
 		
@@ -21,6 +22,7 @@
 				<td class="accountType"></td>
 				<td class="accountBalance"></td>
 				<td class="accountCreationDate"></td>
+				<td class="accountCreditLimit"></td>
 			</tr>
 		</tbody>
 	</table>
