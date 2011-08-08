@@ -2,7 +2,7 @@
 <html>
 	<head>
 	    <title>[PlaceholderBank] - [Placeholder moto]</title>
-
+		<base href="https://clipper.encs.concordia.ca/~dmc353_1/" />
 		<!--section for meta information -->
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	    <meta name="Charset" content="UTF-8">

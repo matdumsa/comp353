@@ -1,3 +1,4 @@
+var env = "PROD";
 var tabCallBack = function() {};
 
 $(function() {	//To be run when DOM is constructed
@@ -102,6 +103,8 @@ function getData(url, params, callback, options)
 {	options = options || {};
 	options.type = options.type || "get";
 	var startTime = new Date();
+	if (env == "PROD" && url.indexOf("cgiwrap") < 0)
+		url = "https://clipper.encs.concordia.ca/cgi-bin/cgiwrap/~dmc353_1/index.php/" + url;
 
 	function updateTimer() {
 		var stopTime = new Date();
