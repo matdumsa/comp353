@@ -5,6 +5,7 @@ class Reports extends CI_Controller {
 
 	public function index() {
 		$this->load->model("ReportsModel");
+		$this->load->library('table');
 		return $this->table->generate($this->ReportsModel->run()); 
 	}
         

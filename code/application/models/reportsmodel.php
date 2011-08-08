@@ -21,7 +21,6 @@ $statement = <<<EOT
 		join Branch b on b.branchId = r.branchId
 		group by branchLocation, name with rollup;
 EOT;
-		$query = $this->db->query($statement);	
-		return $query->result();
+		return $this->db->query($statement);	
 	}
 }
