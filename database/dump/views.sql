@@ -68,3 +68,9 @@ and year(employeePaymentDate) = rm.year and month(employeePaymentDate) = rm.mont
 ) as PayGivenToEmployees
 
  from Branch m, Reports_Month rm
+
+
+drop view account_detail
+
+create view `account_detail` AS select `Account`.`accountNumber` AS `accountNumber`,`Account`.`accountType` AS `accountType`,`Account`.`accountBalance` AS `accountBalance`,`Account`.`accountCreationDate` AS `accountCreationDate`,`Account`.`accountOption` AS `accountOption`,`Account`.`accountBranchId` AS `accountBranchId`,`Account`.`accountRateId` AS `accountRateId`,`Account`.`accountPlanId` AS `accountPlanId`,`Account`.`accountCreditLimit` AS `accountCreditLimit`,`Account`.`accountLevel` AS `accountLevel`,`b`.`transactionCount` AS `transactionCount`,`p`.`branchPlanId` AS `branchPlanId`,`p`.`branchPlanLimit` AS `branchPlanLimit`,`p`.`branchPlanOption` AS `branchPlanOption`,`p`.`branchCharge` AS `branchCharge`,`p`.`branchChargeExcessLimit` AS `branchChargeExcessLimit` from ((`Account` left join `billableTransactionSoFarThisMonth` `b` on((`b`.`accountNumber` = `Account`.`accountNumber`))) join `Charge_plans` `p` on((`p`.`branchPlanId` = `Account`.`accountPlanId`)));
+	
