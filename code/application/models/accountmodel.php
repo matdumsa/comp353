@@ -177,7 +177,7 @@ class AccountModel extends CI_Model {
 		if ($query->num_rows() > 0)
 			$howmany = $howmany[0];
 		else
-			$howmany = 0;
+			return 0;
 			
 		$howmany = $howmany->transactionCount;
 		
