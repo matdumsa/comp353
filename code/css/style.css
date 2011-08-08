@@ -72,8 +72,8 @@ h3 {
 
 .template { display:none; }
 
-table thead tr td { font-weight: bold; } 
-table td { padding:0.1em 1em; }
+table thead tr td, table thead tr th { font-weight: bold; } 
+table td, table th { padding:0.1em 1em; }
 
 tbody.alternateBg tr:nth-child(odd) { background-color: rgba(0, 0, 0, 0.2); /* green, 10% alpha */ }
 
